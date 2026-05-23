@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ─── UPI PAYMENT MODAL ─── */
 const UPI_ID   = 'prjcarefoundation6@oksbi';
-const UPI_NAME = 'PRJ Care Foundation';
+const UPI_NAME = 'EKUM Foundation';
 
 function openUpiModal(amount, tierNote) {
   const modal      = document.getElementById('upiModal');
