@@ -1,0 +1,237 @@
+/* ============================================================
+   PRJ CARE FOUNDATION — Global Photo Enhancement System
+   Approach: CSS filter colour grading (Lightroom-style)
+   - Warm tone: slight hue-rotate towards amber
+   - Lifted contrast & saturation for richness
+   - Vignette overlays via ::after pseudo-elements
+   - Hover: subtle zoom + deeper grade
+   ============================================================ */
+
+/* ─── 1. GLOBAL BASE FILTER — all content images ─── */
+/* Applied to every <img> that is NOT a logo / icon / UI element */
+img:not(.nav-logo img):not(.footer-logo):not(.upi-modal-logo):not(.hero-blob):not([class*="blob"]):not(#contributeQrImg):not(#upiQrImg):not(#modalQrImg) {
+  filter: brightness(1.04) contrast(1.08) saturate(1.22);
+  transition: filter 0.45s ease, transform 0.45s ease;
+}
+
+/* ─── 2. HERO SECTION — main photo ─── */
+.hero-logo {
+  /* Logo keeps neutral — no toning */
+  filter: none !important;
+}
+.hero-main-img,
+.hero-photo img {
+  filter: brightness(1.06) contrast(1.12) saturate(1.28) !important;
+}
+
+/* ─── 3. SWIPER CAROUSEL SLIDES ─── */
+.slide-img {
+  /* Already has a filter in main.css — upgrade it */
+  filter: brightness(1.10) contrast(1.12) saturate(1.30) !important;
+  transition: filter 0.6s ease !important;
+}
+.swiper-slide:hover .slide-img {
+  filter: brightness(1.14) contrast(1.15) saturate(1.38) !important;
+}
+
+/* ─── 4. GALLERY GRID — masonry images ─── */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+}
+.gallery-item img {
+  filter: brightness(1.05) contrast(1.12) saturate(1.28) !important;
+  transition: filter 0.5s ease, transform 0.55s cubic-bezier(0.2,0.8,0.2,1) !important;
+  will-change: transform, filter;
+}
+.gallery-item:hover img {
+  filter: brightness(1.10) contrast(1.15) saturate(1.38) !important;
+  transform: scale(1.06) !important;
+}
+/* Vignette overlay on gallery items */
+.gallery-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(44,24,16,0.28) 100%);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.gallery-item:hover::before { opacity: 1; }
+
+/* ─── 5. EVENT CARDS ─── */
+.event-card-img img,
+.event-card img {
+  filter: brightness(1.06) contrast(1.10) saturate(1.25) !important;
+  transition: filter 0.5s ease, transform 0.5s ease !important;
+}
+.event-card:hover .event-card-img img,
+.event-card:hover img {
+  filter: brightness(1.10) contrast(1.14) saturate(1.35) !important;
+  transform: scale(1.04) !important;
+}
+
+/* ─── 6. CAMPAIGN CARDS ─── */
+.campaign-img img {
+  filter: brightness(1.06) contrast(1.10) saturate(1.25) !important;
+  transition: filter 0.5s ease, transform 0.5s ease !important;
+}
+.campaign-card:hover .campaign-img img {
+  filter: brightness(1.10) contrast(1.14) saturate(1.35) !important;
+  transform: scale(1.04) !important;
+}
+
+/* ─── 7. MISSION PILLAR CARDS ─── */
+.pillar-photo,
+.pillar-card img {
+  filter: brightness(1.05) contrast(1.10) saturate(1.25) !important;
+  transition: filter 0.5s ease, transform 0.5s ease !important;
+}
+.pillar-card:hover .pillar-photo img,
+.pillar-card:hover img {
+  filter: brightness(1.10) contrast(1.14) saturate(1.35) !important;
+  transform: scale(1.05) !important;
+}
+
+/* ─── 8. ABOUT PAGE — story image ─── */
+.story-img img {
+  filter: brightness(1.06) contrast(1.11) saturate(1.26) !important;
+  box-shadow: 0 20px 60px rgba(244,63,94,.12), 0 4px 16px rgba(44,24,16,.10) !important;
+  transition: filter 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease !important;
+}
+.story-img:hover img {
+  filter: brightness(1.10) contrast(1.14) saturate(1.32) !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 28px 72px rgba(244,63,94,.18), 0 6px 20px rgba(44,24,16,.14) !important;
+}
+
+/* ─── 9. IMPACT STORY CARDS (homepage) ─── */
+.impact-story-img,
+.story-card-img,
+.impact-card-img {
+  overflow: hidden;
+  position: relative;
+}
+.impact-story-img img,
+.story-card-img img,
+.impact-card-img img {
+  filter: brightness(1.06) contrast(1.12) saturate(1.28) !important;
+  transition: filter 0.5s ease, transform 0.55s ease !important;
+}
+.impact-story-img:hover img,
+.story-card-img:hover img {
+  filter: brightness(1.10) contrast(1.15) saturate(1.36) !important;
+  transform: scale(1.05) !important;
+}
+/* Warm vignette on story card images */
+.impact-story-img::after,
+.story-card-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(107,61,47,0.25) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── 10. GRID PHOTOS (events/gallery grid) ─── */
+.grid-photo img,
+.photo-grid img,
+.moments-grid img {
+  filter: brightness(1.05) contrast(1.10) saturate(1.24) !important;
+  transition: filter 0.4s ease, transform 0.4s ease !important;
+}
+.grid-photo:hover img,
+.photo-grid .item:hover img {
+  filter: brightness(1.10) contrast(1.14) saturate(1.32) !important;
+  transform: scale(1.04) !important;
+}
+
+/* ─── 11. LIGHTBOX IMAGE — enhanced in fullscreen ─── */
+.lightbox-img {
+  filter: brightness(1.06) contrast(1.10) saturate(1.22) !important;
+}
+
+/* ─── 12. NAV LOGO — keep pure / no grade ─── */
+.nav-logo img,
+.footer-logo,
+.upi-modal-logo {
+  filter: none !important;
+}
+
+/* ─── 13. RECOGNITIONS PAGE — award cards ─── */
+.recognition-img img,
+.award-img img,
+.cert-img img {
+  filter: brightness(1.05) contrast(1.10) saturate(1.22) !important;
+  transition: filter 0.5s ease, transform 0.5s ease !important;
+}
+.recognition-card:hover img,
+.award-card:hover img {
+  filter: brightness(1.10) contrast(1.14) saturate(1.30) !important;
+  transform: scale(1.03) !important;
+}
+
+/* ─── 14. VIGNETTE FRAME — applied to major hero-area images ─── */
+/* Creates depth: edges darken, centre stays bright */
+.story-img,
+.hero-img-frame {
+  position: relative;
+}
+.story-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: var(--radius, 20px);
+  background: radial-gradient(ellipse at 30% 40%, transparent 50%, rgba(44,24,16,0.18) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── 15. WARM TONE OVERLAY on image containers ─── */
+/* Subtle warm amber cast — like a golden-hour grade */
+.slide-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(212, 167, 106, 0.06);  /* warm amber, barely visible */
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── 16. HOVER GLOW LIFT on all cards with images ─── */
+.gallery-item:hover,
+.event-card:hover,
+.campaign-card:hover,
+.pillar-card:hover {
+  box-shadow: 0 20px 56px rgba(244,63,94,.12), 0 6px 18px rgba(44,24,16,.08) !important;
+}
+
+/* ─── 17. LOADING SHIMMER — before image loads ─── */
+img[src]:not([src=""]) {
+  background: linear-gradient(90deg, #fde8d0 0%, #fef6f0 50%, #fde8d0 100%);
+  background-size: 200% 100%;
+}
+
+/* ─── 18. MOBILE — reduce heavy filter for performance ─── */
+@media (max-width: 768px) {
+  img:not(.nav-logo img):not(.footer-logo):not(.hero-blob) {
+    filter: brightness(1.03) contrast(1.06) saturate(1.16) !important;
+  }
+  .gallery-item:hover img,
+  .event-card:hover .event-card-img img,
+  .campaign-card:hover .campaign-img img {
+    filter: brightness(1.07) contrast(1.10) saturate(1.22) !important;
+    transform: scale(1.02) !important;
+  }
+}
+
+/* ─── 19. REDUCED MOTION — no transform animations ─── */
+@media (prefers-reduced-motion: reduce) {
+  img { transition: filter 0.3s ease !important; }
+  .gallery-item:hover img,
+  .event-card:hover img,
+  .campaign-card:hover img,
+  .pillar-card:hover img,
+  .story-img:hover img { transform: none !important; }
+}
