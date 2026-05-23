@@ -1174,3 +1174,10 @@ h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; line-height: 1.2; }
   margin-bottom: 10px;
   margin-top: -6px;
 }
+.footer-reg-note {
+  font-size: 0.70rem;
+  color: rgba(245,230,216,.42);
+  margin-top: -4px;
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}

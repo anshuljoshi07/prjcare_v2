@@ -407,6 +407,7 @@
       <img src="images/logo/ngoLogo.jpg" alt="EKUM Foundation" class="footer-logo" />
       <h3>EKUM</h3>
       <p class="footer-parent-brand">an initiative by PRJ Care Foundation</p>
+      <p class="footer-reg-note">Registered as PRJ Care Foundation · Reg. No. Society Act, Delhi</p>
       <p>Unity in Purpose, Service for All.</p>
       <p class="footer-tagline"><em>"Join us in laying the foundation for a bright future of our country."</em></p>
     </div>
@@ -438,12 +439,12 @@
     </div>
   </div>
   <div class="footer-disclaimer">
-    <p><strong>Disclaimer:</strong> No third party agency is working on behalf of PRJ CARE for any recruitment, trainings, camps or other activities. PRJ CARE doesn't charge any money from anyone.</p>
+    <p><strong>Disclaimer:</strong> No third party agency is working on behalf of EKUM / PRJ Care Foundation for any recruitment, trainings, camps or other activities. PRJ CARE doesn't charge any money from anyone.</p>
   </div>
   <div class="footer-bottom">
     <p>© 2026 EKUM · an initiative by PRJ Care Foundation. All rights reserved. Made with love for a better India.</p>
     <div class="footer-social-mini">
-      <a href="https://www.instagram.com/ekumfoundation/" target="_blank">Instagram</a>
+      <a href="https://www.instagram.com/prjcarefoundation/" target="_blank">Instagram</a>
       <a href="https://www.linkedin.com/company/prj-care-foundation/" target="_blank">LinkedIn</a>
       <a href="https://x.com/Prjcare14" target="_blank">X (Twitter)</a>
     </div>
@@ -523,7 +524,7 @@ function renderCampaigns(filter='all') {
 
   grid.innerHTML = camps.map((c, i) => {
     const p = pct(c.raised, c.target);
-    const waMsg = encodeURIComponent(`HelloEKUM! I would like to donate to your campaign: "${c.title}".`);
+    const waMsg = encodeURIComponent(`Hello EKUM! I would like to donate to your campaign: "${c.title}".`);
     return `
       <div class="campaign-card" data-cat="${c.category}" data-aos="fade-up" data-aos-delay="${(i%3)*100}">
         <div class="campaign-img">${c.image ? `<img src="${c.image}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'" />` : ''}</div>
