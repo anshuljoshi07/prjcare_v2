@@ -163,9 +163,45 @@
     .modal-upi { font-size:1.5rem; font-weight:700; color:var(--deep-brown); font-family:'Cormorant Garamond',serif; background:var(--peach-light); padding:14px 24px; border-radius:var(--radius-sm); margin-bottom:20px; display:block; }
     .modal-note { font-size:.82rem; color:var(--text-light); line-height:1.6; }
 
+    /* ── CONTRIB QR SECTION ── */
+    .contrib-qr-wrap { margin: 28px 0 4px; text-align: center; }
+    .contrib-qr-box {
+      display: inline-block;
+      background: #fefcf3;
+      border-radius: 20px;
+      padding: 18px;
+      border: 1px solid rgba(205,187,167,.3);
+      box-shadow: 0 8px 24px rgba(44,24,16,.07);
+    }
+    .contrib-qr-box img { width: 220px; height: 220px; border-radius: 10px; display: block; }
+    .contrib-qr-hint { font-size: .75rem; color: var(--text-light); margin-top: 10px; }
+    .contrib-upi-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      background: var(--peach-light); border-radius: var(--radius-sm);
+      padding: 14px 18px; margin-bottom: 20px;
+      border: 1px solid rgba(205,187,167,.3);
+    }
+    .contrib-copy-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: white; border: 1px solid rgba(205,187,167,.4);
+      border-radius: 8px; padding: 7px 14px;
+      cursor: pointer; font-family: 'Mulish', sans-serif;
+      font-size: .78rem; font-weight: 700; color: var(--text-mid);
+      transition: background .3s ease, color .3s ease; white-space: nowrap;
+    }
+    .contrib-copy-btn:hover { background: var(--rose); color: white; }
+    /* Modal QR box */
+    .modal-qr-box {
+      background: #fefcf3; border-radius: 14px;
+      padding: 14px; margin: 14px 0;
+      border: 1px solid rgba(205,187,167,.3);
+      text-align: center;
+    }
+
     @media(max-width:768px) {
       .campaigns-grid { grid-template-columns:1fr; }
       .payment-box { padding:36px 24px; }
+      .contrib-qr-box img { width: 180px; height: 180px; }
     }
   </style>
 </head>
@@ -254,23 +290,53 @@
 <!-- UPI PAYMENT -->
 <section class="payment-section">
   <div class="payment-box" data-aos="fade-up">
-    <div style="margin-bottom:16px;display:flex;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.8" width="42" height="42"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+    <img src="images/logo/ngoLogo.jpg" class="upi-modal-logo" alt="PRJ Care Foundation" style="margin:0 auto 16px;width:64px;height:64px;border-radius:50%;object-fit:cover;box-shadow:0 4px 16px rgba(244,63,94,.15);" />
     <h2>Pay via UPI</h2>
-    <p>Scan QR code or use UPI ID to donate directly. All contributions go towards our children's programmes.</p>
-    <div class="upi-details">
-      <p class="upi-label">UPI ID</p>
-      <p class="upi-id">prjcarefoundation@upi</p>
+    <p>Scan the QR code or copy the UPI ID below. Every rupee goes directly to our children's programmes.</p>
+
+    <!-- Live UPI QR Code -->
+    <div class="contrib-qr-wrap">
+      <div class="contrib-qr-box">
+        <img
+          id="contributeQrImg"
+          src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=14&color=2c1810&bgcolor=fefcf3&data=upi%3A%2F%2Fpay%3Fpa%3Dprjcarefoundation6%40oksbi%26pn%3DPRJ%2BCare%2BFoundation%26cu%3DINR%26tn%3DDonation"
+          alt="UPI QR Code — PRJ Care Foundation"
+        />
+      </div>
+      <p class="contrib-qr-hint">Scan with PhonePe, GPay, Paytm, or BHIM</p>
     </div>
-    <div class="qr-placeholder">
-      <svg viewBox="0 0 24 24" fill="none" stroke="var(--warm-brown)" stroke-width="1.5" width="48" height="48"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><rect x="19" y="14" width="2" height="2"/><rect x="14" y="19" width="2" height="2"/><rect x="18" y="18" width="3" height="3"/></svg>
-      <p>QR Code</p>
-      <p style="font-size:.7rem;color:var(--text-light);">Scan to Pay</p>
+
+    <!-- UPI ID Row -->
+    <div class="contrib-upi-row">
+      <div>
+        <p class="upi-label">UPI ID</p>
+        <p class="upi-id" id="contributeUpiId">prjcarefoundation6@oksbi</p>
+      </div>
+      <button class="contrib-copy-btn" id="contributeCopyBtn" onclick="copyContribUpi()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy
+      </button>
     </div>
-    <a href="https://wa.me/919910954537?text=Hello%21%20I%20have%20made%20a%20donation%20to%20PRJ%20Care%20Foundation%20via%20UPI.%20Please%20confirm%20receipt." target="_blank" class="btn-whatsapp" style="display:inline-flex;margin:0 auto;">
+
+    <!-- Pay Now deep link -->
+    <a href="upi://pay?pa=prjcarefoundation6@oksbi&pn=PRJ%20Care%20Foundation&cu=INR&tn=Donation" class="upi-pay-btn" style="margin:20px auto;max-width:340px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      Open UPI App &amp; Pay Now
+    </a>
+
+    <div class="upi-modal-apps" style="justify-content:center;">
+      <span>Works with</span>
+      <span class="upi-app-tag">&#128241; PhonePe</span>
+      <span class="upi-app-tag">&#128994; GPay</span>
+      <span class="upi-app-tag">&#128309; Paytm</span>
+      <span class="upi-app-tag">&#128992; BHIM</span>
+    </div>
+
+    <a href="https://wa.me/919910954537?text=Hello%21%20I%20have%20made%20a%20donation%20to%20PRJ%20Care%20Foundation%20via%20UPI%20ID%20prjcarefoundation6%40oksbi.%20Please%20confirm%20receipt." target="_blank" class="btn-whatsapp" style="display:inline-flex;margin:20px auto 0;">
       <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Notify Us on WhatsApp After Paying
     </a>
-    <p class="payment-note">After making a payment, please send us a WhatsApp message with your name and transaction ID so we can acknowledge your contribution.</p>
+    <p class="payment-note">80G tax exemption available · After paying, WhatsApp us your name &amp; transaction ID so we can acknowledge your generous contribution.</p>
   </div>
 </section>
 
@@ -300,19 +366,36 @@
   </div>
 </section>
 
-<!-- DONATE MODAL -->
+<!-- CAMPAIGN DONATE MODAL (UPI with QR) -->
 <div class="modal-overlay" id="donateModal">
-  <div class="modal-box">
-    <button class="modal-close" id="modalClose">✕</button>
-    <div style="margin-bottom:12px;display:flex;justify-content:center;"><svg viewBox="0 0 24 24" fill="var(--rose)" width="36" height="36"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+  <div class="modal-box" style="max-width:420px;">
+    <button class="modal-close" id="modalClose">&#10005;</button>
+    <img src="images/logo/ngoLogo.jpg" alt="" style="width:52px;height:52px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;" />
     <h3 class="modal-title" id="modalTitle">Donate to Campaign</h3>
-    <p class="modal-sub" id="modalSub">Your contribution makes a real difference.</p>
-    <span class="modal-upi">prjcarefoundation@upi</span>
-    <a href="https://wa.me/919910954537?text=Hello!%20I%20have%20donated%20to%20PRJ%20Care%20Foundation.%20Please%20confirm." target="_blank" class="btn-whatsapp" style="display:inline-flex;margin-bottom:16px;">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <p class="modal-sub" id="modalSub">Scan the QR or use UPI ID to pay directly.</p>
+    <div class="modal-qr-box">
+      <img id="modalQrImg" src="" alt="UPI QR Code" style="width:180px;height:180px;border-radius:10px;display:block;margin:0 auto;" />
+      <p style="font-size:.72rem;color:var(--text-light);margin-top:8px;">Scan with any UPI app</p>
+    </div>
+    <div class="contrib-upi-row" style="margin:16px 0;">
+      <div>
+        <p class="upi-label" style="text-align:left;">UPI ID</p>
+        <p class="upi-id" style="font-size:1rem;">prjcarefoundation6@oksbi</p>
+      </div>
+      <button class="contrib-copy-btn" id="modalCopyBtn" onclick="copyModalUpi()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy
+      </button>
+    </div>
+    <a id="modalPayLink" href="upi://pay?pa=prjcarefoundation6@oksbi&pn=PRJ%20Care%20Foundation&cu=INR" class="upi-pay-btn" style="margin:0 auto 14px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      Open UPI App &amp; Pay Now
+    </a>
+    <a href="https://wa.me/919910954537?text=Hello!%20I%20want%20to%20donate%20to%20PRJ%20Care%20Foundation.%20Please%20confirm." target="_blank" class="btn-whatsapp" style="display:inline-flex;margin-bottom:14px;">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Notify Us on WhatsApp
     </a>
-    <p class="modal-note">After paying, send us a WhatsApp message with your name and transaction ID. Thank you for your kindness.</p>
+    <p class="modal-note">80G tax exemption available. After paying, send us your name &amp; transaction ID. Thank you! &#10084;</p>
   </div>
 </div>
 
@@ -482,15 +565,81 @@ document.querySelectorAll('.camp-filter-btn').forEach(btn => {
   });
 });
 
-// MODAL
+// MODAL — with live QR code
+const CONTRIB_UPI = 'prjcarefoundation6@oksbi';
+const CONTRIB_NAME = 'PRJ Care Foundation';
+
 function openModal(title) {
   document.getElementById('modalTitle').textContent = 'Donate: ' + title;
-  document.getElementById('modalSub').textContent = 'Use UPI below or WhatsApp us to confirm your donation.';
+  document.getElementById('modalSub').textContent = 'Scan the QR or use UPI ID to pay directly.';
+
+  // Build UPI deep link with campaign name as note
+  const note = encodeURIComponent('Donation – ' + title);
+  const upiLink = `upi://pay?pa=${CONTRIB_UPI}&pn=${encodeURIComponent(CONTRIB_NAME)}&cu=INR&tn=${note}`;
+
+  // Update Pay Now link
+  document.getElementById('modalPayLink').href = upiLink;
+
+  // Generate live QR code
+  const qrData = encodeURIComponent(upiLink);
+  document.getElementById('modalQrImg').src =
+    `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=12&color=2c1810&bgcolor=fefcf3&data=${qrData}`;
+
+  // Reset copy btn
+  const btn = document.getElementById('modalCopyBtn');
+  btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+  btn.style.background = '';
+  btn.style.color = '';
+
   document.getElementById('donateModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
-document.getElementById('modalClose').addEventListener('click',()=>{document.getElementById('donateModal').classList.remove('open');});
-document.getElementById('donateModal').addEventListener('click',e=>{if(e.target===document.getElementById('donateModal'))document.getElementById('donateModal').classList.remove('open');});
-window.openModal=openModal;
+
+document.getElementById('modalClose').addEventListener('click', () => {
+  document.getElementById('donateModal').classList.remove('open');
+  document.body.style.overflow = '';
+});
+document.getElementById('donateModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('donateModal')) {
+    document.getElementById('donateModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('donateModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+window.openModal = openModal;
+
+function copyContribUpi() {
+  navigator.clipboard.writeText(CONTRIB_UPI).then(() => {
+    const btn = document.getElementById('contributeCopyBtn');
+    btn.innerHTML = '✓ Copied!';
+    btn.style.background = '#2d6a4f';
+    btn.style.color = 'white';
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 2500);
+  });
+}
+
+function copyModalUpi() {
+  navigator.clipboard.writeText(CONTRIB_UPI).then(() => {
+    const btn = document.getElementById('modalCopyBtn');
+    btn.innerHTML = '✓ Copied!';
+    btn.style.background = '#2d6a4f';
+    btn.style.color = 'white';
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 2500);
+  });
+}
 
 // FOOTER FORM
 document.getElementById('footerForm').addEventListener('submit',e=>{
