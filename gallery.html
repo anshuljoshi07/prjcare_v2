@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | PRJ Care Foundation</title>
+  <link rel="icon" href="images/logo/ngoLogo.jpg" type="image/jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    .page-hero {
+      padding:140px 24px 80px;
+      background:linear-gradient(135deg,#fde8d0 0%,#fdefef 50%,#fce7eb 100%);
+      text-align:center; position:relative; overflow:hidden;
+    }
+    .page-hero h1{font-size:clamp(2.6rem,6vw,4rem);font-weight:700;color:var(--text-dark);margin-bottom:16px;}
+    .page-hero p{font-size:1.05rem;color:var(--text-mid);max-width:560px;margin:0 auto;}
+    .page-breadcrumb{font-size:.82rem;color:var(--text-light);margin-bottom:16px;}
+    .page-breadcrumb a{color:var(--rose);font-weight:600;}
+
+    /* ── GALLERY GRID ── */
+    .gallery-section { padding:70px 24px 90px; background:var(--bg); }
+    .gallery-grid {
+      max-width:1200px; margin:0 auto;
+      columns:3; column-gap:16px;
+    }
+    .gallery-item {
+      break-inside:avoid; margin-bottom:16px;
+      border-radius:var(--radius-sm); overflow:hidden;
+      cursor:pointer; position:relative;
+      box-shadow:var(--shadow-sm);
+      transition:transform var(--transition),box-shadow var(--transition);
+    }
+    .gallery-item:hover { transform:scale(1.02); box-shadow:var(--shadow-md); }
+    .gallery-item img {
+      width:100%; display:block;
+      transition:transform 0.5s ease;
+    }
+    .gallery-item:hover img { transform:scale(1.05); }
+    .gallery-item-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(44,24,16,.65),transparent 50%);
+      opacity:0; transition:opacity var(--transition);
+      display:flex; align-items:flex-end; padding:14px;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity:1; }
+    .gallery-item-title { color:#fff; font-size:.85rem; font-weight:700; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display:none; position:fixed; inset:0; background:rgba(20,8,4,.9);
+      z-index:3000; align-items:center; justify-content:center;
+      backdrop-filter:blur(8px); padding:20px;
+    }
+    .lightbox.open { display:flex; }
+    .lightbox-img {
+      max-width:90vw; max-height:85vh; border-radius:var(--radius);
+      box-shadow:0 20px 80px rgba(0,0,0,.6);
+    }
+    .lightbox-close {
+      position:fixed; top:20px; right:24px; color:#fff; font-size:2rem;
+      cursor:pointer; background:none; border:none; line-height:1;
+      transition:transform var(--transition);
+    }
+    .lightbox-close:hover { transform:rotate(90deg); }
+    .lightbox-nav {
+      position:fixed; top:50%; background:rgba(255,255,255,.15);
+      border:none; color:#fff; font-size:1.8rem; cursor:pointer;
+      padding:12px 18px; border-radius:50%; backdrop-filter:blur(4px);
+      transform:translateY(-50%); transition:background var(--transition);
+    }
+    .lightbox-nav:hover { background:rgba(255,255,255,.3); }
+    .lightbox-prev { left:16px; }
+    .lightbox-next { right:16px; }
+    .lightbox-caption {
+      position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+      color:#fff; font-size:.9rem; text-align:center; max-width:500px;
+      background:rgba(0,0,0,.4); padding:8px 20px; border-radius:var(--radius-pill);
+    }
+
+    /* ── SLIDES SECTION ── */
+    .slides-section { padding:0 24px 80px; background:var(--bg); }
+    .slides-section .section-header { margin-bottom:32px; }
+    .slides-grid {
+      max-width:1200px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;
+    }
+    .slide-thumb {
+      border-radius:var(--radius-sm); overflow:hidden;
+      aspect-ratio:4/3; cursor:pointer; position:relative;
+      box-shadow:var(--shadow-sm); transition:transform var(--transition);
+    }
+    .slide-thumb:hover { transform:scale(1.03); }
+    .slide-thumb img { width:100%; height:100%; object-fit:cover; }
+
+    @media(max-width:768px) {
+      .gallery-grid { columns:2; }
+      .lightbox-nav { display:none; }
+    }
+    @media(max-width:480px) {
+      .gallery-grid { columns:1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo/ngoLogo.jpg" alt="PRJ Care Foundation Logo" />
+      <span class="nav-logo-text">PRJ <span>Care</span> Foundation</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="recognitions.html">Recognitions</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contribute.html" class="nav-cta">Contribute Now</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-content" data-aos="fade-up">
+    <p class="page-breadcrumb"><a href="index.html">Home</a> › Gallery</p>
+    <span class="section-tag">Memories</span>
+    <h1>Photo Gallery</h1>
+    <p>A visual journey through our events, celebrations, and community moments that define PRJ Care Foundation.</p>
+  </div>
+</section>
+
+<!-- INSTAGRAM GALLERY -->
+<section class="gallery-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Instagram Posts</span>
+    <h2 class="section-title">Moments From Our Journey</h2>
+    <p class="section-sub">All 20 posts from our Instagram @prjcarefoundation — click any photo to enlarge</p>
+  </div>
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- OUR SLIDES GALLERY -->
+<section class="slides-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Archive</span>
+    <h2 class="section-title">From Our Archives</h2>
+  </div>
+  <div class="slides-grid">
+    <div class="slide-thumb" data-aos="zoom-in" data-aos-delay="0"><img src="images/slides/a1.jpg" alt="Activity 1" loading="lazy" /></div>
+    <div class="slide-thumb" data-aos="zoom-in" data-aos-delay="60"><img src="images/slides/a2.jpg" alt="Activity 2" loading="lazy" /></div>
+    <div class="slide-thumb" data-aos="zoom-in" data-aos-delay="120"><img src="images/slides/a3.jpg" alt="Activity 3" loading="lazy" /></div>
+    <div class="slide-thumb" data-aos="zoom-in" data-aos-delay="180"><img src="images/slides/a4.jpg" alt="Activity 4" loading="lazy" /></div>
+    <div class="slide-thumb" data-aos="zoom-in" data-aos-delay="240"><img src="images/slides/a5.jpg" alt="Activity 5" loading="lazy" /></div>
+    <div class="slide-thumb" data-aos="zoom-in" data-aos-delay="300"><img src="images/slides/a6.jpg" alt="Activity 6" loading="lazy" /></div>
+    <div class="slide-thumb" data-aos="zoom-in" data-aos-delay="360"><img src="images/slides/a7.jpg" alt="Activity 7" loading="lazy" /></div>
+    <div class="slide-thumb" data-aos="zoom-in" data-aos-delay="420"><img src="images/slides/a18.jpg" alt="Activity 8" loading="lazy" /></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev">‹</button>
+  <img src="" alt="" class="lightbox-img" id="lbImg" />
+  <button class="lightbox-nav lightbox-next" id="lbNext">›</button>
+  <div class="lightbox-caption" id="lbCaption"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <img src="images/logo/ngoLogo.jpg" alt="PRJ Care Foundation" class="footer-logo" />
+      <h3>PRJ Care Foundation</h3>
+      <p>Empowering Lives & Actualising True Potential.</p>
+      <p class="footer-tagline"><em>"Join us in laying the foundation for a bright future of our country."</em></p>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contribute.html">Contribute Now</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>B-705, Ground Floor, Vasundhra Apartments,<br/>Sector-6, Dwarka, New Delhi – 110076</p>
+      <p><a href="tel:9910954537">9910954537</a></p>
+      <p><a href="mailto:prjcarefoundation@gmail.com">prjcarefoundation@gmail.com</a></p>
+    </div>
+    <div class="footer-newsletter">
+      <h4>Follow Us</h4>
+      <p style="color:rgba(245,230,216,.7);font-size:.9rem;margin-bottom:16px;">Follow our journey on Instagram for daily updates and moments.</p>
+      <a href="https://www.instagram.com/prjcarefoundation/" target="_blank" class="btn-primary" style="font-size:.85rem;">@prjcarefoundation on Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 PRJ Care Foundation NGO. All rights reserved. Made with love for a better India.</p>
+    <div class="footer-social-mini">
+      <a href="https://www.instagram.com/prjcarefoundation/" target="_blank">Instagram</a>
+      <a href="https://www.linkedin.com/company/prj-care-foundation/" target="_blank">LinkedIn</a>
+      <a href="https://x.com/Prjcare14" target="_blank">X (Twitter)</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<a href="https://wa.me/919910954537?text=Hello%20PRJ%20Care%20Foundation!" target="_blank" class="whatsapp-fab" aria-label="Chat on WhatsApp">
+  <div class="whatsapp-pulse"></div>
+  <svg viewBox="0 0 24 24" fill="white" width="30" height="30"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="whatsapp-tooltip">Chat with us!</span>
+</a>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({duration:650,once:true,offset:50});
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>30),{passive:true});
+const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');navLinks.classList.toggle('open');});
+
+// Gallery items using local images — 20 posts
+const igPosts = [
+  {src:'images/slides/a1.jpg',   title:'December Birthday Celebrations',   igId:'DSKU4tICR-1'},
+  {src:'images/slides/a4.jpg',   title:'Birthday Celebration — Sushmita',  igId:'DSNBmiQCTzB'},
+  {src:'images/slides/a2.jpg',   title:'Merry Christmas 2023',             igId:'C1Rm_9IpJu1'},
+  {src:'images/slides/a5.jpg',   title:'New Year — Message of Kindness',   igId:'DTAOna_ia1p'},
+  {src:'images/grid/educationgrid.jpg', title:'Free Classes for Children', igId:'DTU4h4niRfj'},
+  {src:'images/slides/a3.jpg',   title:"Founder's Teaching Session",       igId:'DTtpoxDkgSb'},
+  {src:'images/grid/republic daygrid.jpg', title:'Gantantra Diwas 2026',   igId:'DT-zrpxiWzP'},
+  {src:'images/slides/a7.jpg',   title:'Cancer Awareness Drive',           igId:'DUIndEOCZoQ'},
+  {src:'images/slides/a18.jpg',  title:'Bhavya Hindu Sammelan',            igId:'DUf3tlxifl9'},
+  {src:'images/grid/educationaltripgrid.jpg', title:'Sweet Memories 2016', igId:'DUpeVKgj5Rx'},
+  {src:'images/slides/a8.jpg',   title:'Children Activity Class',          igId:'DVGbMB2Cfiy'},
+  {src:'images/grid/vasantpanchmigrid.jpg', title:'Happy Holi 2026',       igId:'DVYdb6iFGic'},
+  {src:'images/grid/picnicgrid.jpg', title:'Councillor Community Connect', igId:'DVgcLkEj43E'},
+  {src:'images/slides/e1.jpg',   title:'Birthday Celebration — Pure Joy',  igId:'DV8jlxEico5'},
+  {src:'images/ngo1.jpg',        title:'Bharat Vandana Park Outing',       igId:'DV-PitDie3N'},
+  {src:'images/slides/e2.jpg',   title:'Children Prayer & Spiritual Connect', igId:'DWrXXWMibzI'},
+  {src:'images/slides/e3.jpg',   title:'Hanuman Jayanti',                  igId:'DWoTLK3CQfM'},
+  {src:'images/slides/yoga1.jpg',title:'Community Yoga Session',           igId:'DW-pi1fjwY-'},
+  {src:'images/slides/yoga2.jpg',title:'Yoga Day — Karo Yoga Raho Nirog', igId:'DYLzT-YJiPy'},
+  {src:'images/slides/yoga3.jpg',title:"Maatridivas — Mother's Day",       igId:'DYJrfomCfit'},
+];
+
+// Build masonry gallery
+const grid=document.getElementById('galleryGrid');
+let currentIdx=0;
+
+grid.innerHTML=igPosts.map((p,i)=>`
+  <div class="gallery-item" data-index="${i}" data-aos="zoom-in" data-aos-delay="${(i%4)*80}" onclick="openLightbox(${i})">
+    <img src="${p.src}" alt="${p.title}" loading="lazy"
+      onerror="this.parentElement.style.background='linear-gradient(135deg,var(--peach-light),var(--peach-mid))';this.style.display='none'" />
+    <div class="gallery-item-overlay">
+      <span class="gallery-item-title">${p.title}</span>
+    </div>
+  </div>
+`).join('');
+AOS.refresh();
+
+// LIGHTBOX
+function openLightbox(idx) {
+  currentIdx=idx;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function updateLightbox() {
+  const item=igPosts[currentIdx];
+  document.getElementById('lbImg').src=item.src;
+  document.getElementById('lbCaption').textContent=item.title;
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('lbClose').addEventListener('click',closeLightbox);
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===document.getElementById('lightbox'))closeLightbox();});
+document.getElementById('lbPrev').addEventListener('click',()=>{currentIdx=(currentIdx-1+igPosts.length)%igPosts.length;updateLightbox();});
+document.getElementById('lbNext').addEventListener('click',()=>{currentIdx=(currentIdx+1)%igPosts.length;updateLightbox();});
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open'))return;
+  if(e.key==='ArrowLeft'){currentIdx=(currentIdx-1+igPosts.length)%igPosts.length;updateLightbox();}
+  if(e.key==='ArrowRight'){currentIdx=(currentIdx+1)%igPosts.length;updateLightbox();}
+  if(e.key==='Escape')closeLightbox();
+});
+window.openLightbox=openLightbox;
+</script>
+</body>
+</html>

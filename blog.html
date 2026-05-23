@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | PRJ Care Foundation</title>
+  <link rel="icon" href="images/logo/ngoLogo.jpg" type="image/jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    .page-hero {
+      padding:140px 24px 80px;
+      background:linear-gradient(135deg,#fde8d0 0%,#fdefef 50%,#fce7eb 100%);
+      text-align:center; position:relative; overflow:hidden;
+    }
+    .page-hero h1{font-size:clamp(2.6rem,6vw,4rem);font-weight:700;color:var(--text-dark);margin-bottom:16px;}
+    .page-hero p{font-size:1.05rem;color:var(--text-mid);max-width:560px;margin:0 auto;}
+    .page-breadcrumb{font-size:.82rem;color:var(--text-light);margin-bottom:16px;}
+    .page-breadcrumb a{color:var(--rose);font-weight:600;}
+
+    .blog-section { padding:80px 24px 90px; background:var(--bg); }
+    .blog-grid {
+      max-width:1100px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:32px;
+    }
+    .blog-card {
+      background:var(--cream); border-radius:var(--radius); overflow:hidden;
+      box-shadow:var(--shadow-sm); border:1px solid rgba(205,187,167,.2);
+      transition:transform var(--transition),box-shadow var(--transition);
+    }
+    .blog-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-md); }
+    .blog-img {
+      height:220px; background:var(--peach-mid);
+      display:flex; align-items:center; justify-content:center; font-size:3.5rem;
+      overflow:hidden;
+    }
+    .blog-img img { width:100%; height:100%; object-fit:cover; }
+    .blog-body { padding:26px 24px; }
+    .blog-cat { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--rose); margin-bottom:8px; }
+    .blog-title { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:700; color:var(--text-dark); margin-bottom:10px; line-height:1.3; }
+    .blog-date { font-size:.78rem; color:var(--text-light); margin-bottom:12px; }
+    .blog-excerpt { font-size:.9rem; color:var(--text-mid); line-height:1.72; margin-bottom:18px; }
+    .blog-read { font-size:.85rem; font-weight:700; color:var(--rose); text-decoration:none; }
+    .blog-read:hover { text-decoration:underline; }
+
+    @media(max-width:768px) { .blog-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><img src="images/logo/ngoLogo.jpg" alt="Logo" /><span class="nav-logo-text">PRJ <span>Care</span> Foundation</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="recognitions.html">Recognitions</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contribute.html" class="nav-cta">Contribute Now</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-content" data-aos="fade-up">
+    <p class="page-breadcrumb"><a href="index.html">Home</a> › Blog</p>
+    <span class="section-tag">Stories & Insights</span>
+    <h1>Our Blog</h1>
+    <p>Stories, reflections, and insights from the heart of PRJ Care Foundation — celebrating the journey, the people, and the purpose.</p>
+  </div>
+</section>
+
+<section class="blog-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Latest Posts</span>
+    <h2 class="section-title">Thoughts from the Foundation</h2>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="blog-img"><img src="images/slides/a3.jpg" alt="Education" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,var(--peach-light),var(--peach-mid))'" /></div>
+      <div class="blog-body">
+        <p class="blog-cat">Education</p>
+        <h3 class="blog-title">Why Education is the Most Powerful Gift We Can Give</h3>
+        <p class="blog-date">January 2026</p>
+        <p class="blog-excerpt">Every child who learns to read, write, and think independently gains wings to fly beyond the circumstances of their birth. At PRJ Care Foundation, we have seen this transformation first-hand...</p>
+        <a href="contact.html" class="blog-read">Read More →</a>
+      </div>
+    </div>
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="blog-img"><img src="images/slides/a5.jpg" alt="Kindness" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#fce7eb,#fde8d0)'" /></div>
+      <div class="blog-body">
+        <p class="blog-cat">Inspiration</p>
+        <h3 class="blog-title">Kindness Costs Nothing But Means Everything</h3>
+        <p class="blog-date">January 2026</p>
+        <p class="blog-excerpt">A kind word, a helping hand, or even a simple smile can change someone's day — and sometimes, their life. PRJ Care Foundation believes that compassion is the foundation of all social change...</p>
+        <a href="contact.html" class="blog-read">Read More →</a>
+      </div>
+    </div>
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="blog-img" style="background:linear-gradient(135deg,var(--peach-mid),var(--peach-light));"></div>
+      <div class="blog-body">
+        <p class="blog-cat">Community</p>
+        <h3 class="blog-title">Why We Celebrate Birthdays — The Story Behind Our Monthly Tradition</h3>
+        <p class="blog-date">December 2025</p>
+        <p class="blog-excerpt">For many of the children we serve, a birthday is just another day — no cake, no gifts, no celebration. We decided to change that. Every month, we celebrate every child born that month...</p>
+        <a href="contact.html" class="blog-read">Read More →</a>
+      </div>
+    </div>
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="blog-img"><img src="images/slides/a6.jpg" alt="Health" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,var(--peach-mid),var(--peach-light))'" /></div>
+      <div class="blog-body">
+        <p class="blog-cat">Health</p>
+        <h3 class="blog-title">Yoga for All: How We Brought Wellness to Our Community</h3>
+        <p class="blog-date">May 2025</p>
+        <p class="blog-excerpt">When we organized our first community yoga session, we had 15 participants. Today, hundreds join us. This is the story of how a simple idea became a movement for wellness...</p>
+        <a href="contact.html" class="blog-read">Read More →</a>
+      </div>
+    </div>
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="400">
+      <div class="blog-img" style="background:linear-gradient(135deg,var(--peach-light),#e8f5e9);"></div>
+      <div class="blog-body">
+        <p class="blog-cat">Environment</p>
+        <h3 class="blog-title">Planting Trees, Planting Hope — Our Plantation Drive Story</h3>
+        <p class="blog-date">June 2024</p>
+        <p class="blog-excerpt">On World Environment Day, our volunteers gathered with saplings and shovels. What followed was not just a plantation drive — it was a lesson in responsibility for future generations...</p>
+        <a href="contact.html" class="blog-read">Read More →</a>
+      </div>
+    </div>
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="500">
+      <div class="blog-img" style="background:linear-gradient(135deg,#fff3e0,#fce7eb);"></div>
+      <div class="blog-body">
+        <p class="blog-cat">National Pride</p>
+        <h3 class="blog-title">Republic Day 2026 — Teaching Children What Freedom Really Means</h3>
+        <p class="blog-date">January 2026</p>
+        <p class="blog-excerpt">As the tricolour was hoisted and children sang the national anthem with full-throated pride, we were reminded of why we do this work. Republic Day is more than a holiday — it's a promise...</p>
+        <a href="contact.html" class="blog-read">Read More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <img src="images/logo/ngoLogo.jpg" alt="PRJ Care Foundation" class="footer-logo" />
+      <h3>PRJ Care Foundation</h3>
+      <p>Empowering Lives & Actualising True Potential.</p>
+      <p class="footer-tagline"><em>"Join us in laying the foundation for a bright future of our country."</em></p>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="contribute.html">Contribute Now</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>B-705, Ground Floor, Vasundhra Apartments,<br/>Sector-6, Dwarka, New Delhi – 110076</p>
+      <p><a href="tel:9910954537">9910954537</a></p>
+      <p><a href="mailto:prjcarefoundation@gmail.com">prjcarefoundation@gmail.com</a></p>
+    </div>
+    <div class="footer-newsletter">
+      <h4>Write a Story</h4>
+      <p style="font-size:.9rem;color:rgba(245,230,216,.7);margin-bottom:16px;">Have a story related to education, community, or kindness? We'd love to feature it.</p>
+      <a href="contact.html" class="btn-primary" style="font-size:.85rem;">Submit Your Story</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 PRJ Care Foundation NGO. All rights reserved. Made with love for a better India.</p>
+    <div class="footer-social-mini">
+      <a href="https://www.instagram.com/prjcarefoundation/" target="_blank">Instagram</a>
+      <a href="https://www.linkedin.com/company/prj-care-foundation/" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/919910954537?text=Hello%20PRJ%20Care%20Foundation!" target="_blank" class="whatsapp-fab" aria-label="Chat">
+  <div class="whatsapp-pulse"></div>
+  <svg viewBox="0 0 24 24" fill="white" width="30" height="30"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="whatsapp-tooltip">Chat with us!</span>
+</a>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({duration:650,once:true,offset:50});
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>30),{passive:true});
+const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');navLinks.classList.toggle('open');});
+</script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contribute Now | PRJ Care Foundation</title>
+  <link rel="icon" href="images/logo/ngoLogo.jpg" type="image/jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 140px 24px 80px;
+      background: linear-gradient(135deg, #fde8d0 0%, #fdefef 50%, #fce7eb 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero h1 { font-size: clamp(2.6rem,6vw,4rem); font-weight:700; color:var(--text-dark); margin-bottom:16px; }
+    .page-hero p { font-size:1.05rem; color:var(--text-mid); max-width:560px; margin:0 auto; }
+    .page-breadcrumb { font-size:.82rem; color:var(--text-light); margin-bottom:16px; }
+    .page-breadcrumb a { color:var(--rose); font-weight:600; }
+
+    /* ── HOW TO CONTRIBUTE ── */
+    .how-section { padding:70px 24px; background:var(--cream); }
+    .how-grid {
+      max-width:1100px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:24px;
+    }
+    .how-card {
+      background:var(--bg); border-radius:var(--radius); padding:36px 24px;
+      text-align:center; border:1px solid rgba(205,187,167,.2);
+      box-shadow:var(--shadow-sm);
+      transition:transform var(--transition),box-shadow var(--transition);
+    }
+    .how-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-md); }
+    .how-icon { font-size:2.6rem; margin-bottom:14px; display:block; }
+    .how-icon-svg { margin:0 auto 16px; width:60px; height:60px; display:flex; align-items:center; justify-content:center; background:var(--rose-light); border-radius:50%; }
+    .how-card h3 { font-size:1.2rem; font-weight:700; color:var(--deep-brown); margin-bottom:8px; }
+    .how-card p { font-size:.9rem; color:var(--text-mid); line-height:1.65; }
+
+    /* ── UPI / PAYMENT ── */
+    .payment-section { padding:80px 24px; background:var(--bg); }
+    .payment-box {
+      max-width:700px; margin:0 auto; background:var(--cream);
+      border-radius:var(--radius); padding:48px 40px; text-align:center;
+      box-shadow:var(--shadow-md); border:1px solid rgba(205,187,167,.2);
+    }
+    .payment-box h2 { font-size:2rem; font-weight:700; color:var(--text-dark); margin-bottom:8px; }
+    .payment-box p { color:var(--text-mid); margin-bottom:28px; }
+    .upi-details {
+      background:var(--peach-light); border-radius:var(--radius-sm);
+      padding:24px 28px; margin-bottom:28px; display:inline-block; width:100%;
+    }
+    .upi-id {
+      font-size:1.4rem; font-weight:700; color:var(--deep-brown); font-family:'Cormorant Garamond',serif;
+      letter-spacing:.04em;
+    }
+    .upi-label { font-size:.78rem; color:var(--text-light); font-weight:600; text-transform:uppercase; letter-spacing:.1em; margin-bottom:8px; }
+    .qr-placeholder {
+      width:180px; height:180px; background:#fff; border-radius:var(--radius-sm);
+      display:flex; align-items:center; justify-content:center; margin:0 auto 20px;
+      border:2px dashed var(--warm-brown); flex-direction:column; gap:8px;
+    }
+    .qr-placeholder span { font-size:3rem; }
+    .qr-placeholder p { font-size:.75rem; color:var(--text-light); }
+    .payment-note { font-size:.82rem; color:var(--text-light); margin-top:16px; line-height:1.6; }
+
+    /* ── CAMPAIGNS ── */
+    .campaigns-section { padding:80px 24px; background:var(--peach-light); }
+    .campaigns-filter {
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:40px;
+    }
+    .camp-filter-btn {
+      padding:7px 18px; border-radius:var(--radius-pill); font-size:.82rem; font-weight:700;
+      cursor:pointer; border:1.5px solid rgba(205,187,167,.5); background:transparent;
+      color:var(--text-mid); transition:all var(--transition);
+    }
+    .camp-filter-btn.active, .camp-filter-btn:hover {
+      background:var(--rose); border-color:var(--rose); color:#fff;
+    }
+    .campaigns-grid {
+      max-width:1100px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:28px;
+    }
+    .campaign-card {
+      background:var(--cream); border-radius:var(--radius); overflow:hidden;
+      box-shadow:var(--shadow-sm); border:1px solid rgba(205,187,167,.2);
+      transition:transform var(--transition),box-shadow var(--transition);
+    }
+    .campaign-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-md); }
+    .campaign-img {
+      height:200px; object-fit:cover; width:100%;
+      background:var(--peach-mid); display:flex; align-items:center; justify-content:center;
+      font-size:3.5rem;
+    }
+    .campaign-img img { width:100%; height:100%; object-fit:cover; }
+    .campaign-body { padding:22px 20px; }
+    .campaign-cat {
+      font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em;
+      color:var(--rose); margin-bottom:8px;
+    }
+    .campaign-title { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:700; color:var(--text-dark); margin-bottom:8px; }
+    .campaign-desc { font-size:.88rem; color:var(--text-mid); line-height:1.65; margin-bottom:16px; }
+    .progress-wrap { margin-bottom:14px; }
+    .progress-labels { display:flex; justify-content:space-between; font-size:.78rem; color:var(--text-light); font-weight:600; margin-bottom:6px; }
+    .progress-bar-bg { background:rgba(205,187,167,.3); border-radius:50px; height:8px; overflow:hidden; }
+    .progress-bar-fill {
+      height:100%; border-radius:50px;
+      background:linear-gradient(90deg,var(--rose),var(--gold));
+      transition:width 1.5s cubic-bezier(.4,0,.2,1);
+    }
+    .campaign-actions { display:flex; gap:10px; }
+    .donate-btn {
+      flex:1; background:var(--rose); color:#fff; border:none; border-radius:var(--radius-pill);
+      padding:11px 0; font-weight:700; font-size:.9rem; cursor:pointer;
+      transition:background var(--transition),transform var(--transition);
+      font-family:'Mulish',sans-serif;
+    }
+    .donate-btn:hover { background:var(--rose-hover); transform:translateY(-2px); }
+    .wa-donate-btn {
+      background:var(--whatsapp); color:#fff; border:none; border-radius:var(--radius-pill);
+      padding:11px 18px; font-size:1.1rem; cursor:pointer;
+      transition:transform var(--transition);
+    }
+    .wa-donate-btn:hover { transform:translateY(-2px); }
+
+    /* ── IMPACT ── */
+    .impact-section { padding:80px 24px; background:var(--cream); text-align:center; }
+    .impact-grid {
+      max-width:900px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:24px;
+      margin-top:40px;
+    }
+    .impact-card {
+      background:var(--bg); border-radius:var(--radius); padding:28px 20px;
+      border:1px solid rgba(205,187,167,.2);
+    }
+    .impact-num { font-family:'Cormorant Garamond',serif; font-size:2.4rem; font-weight:700; color:var(--rose); }
+    .impact-label { font-size:.82rem; color:var(--text-mid); font-weight:600; margin-top:4px; }
+
+    /* DONATE MODAL */
+    .modal-overlay {
+      display:none; position:fixed; inset:0; background:rgba(44,24,16,.6);
+      z-index:2000; align-items:center; justify-content:center;
+      backdrop-filter:blur(6px);
+    }
+    .modal-overlay.open { display:flex; }
+    .modal-box {
+      background:var(--cream); border-radius:var(--radius); padding:40px 36px;
+      max-width:460px; width:90%; text-align:center;
+      box-shadow:var(--shadow-lg); position:relative;
+    }
+    .modal-close {
+      position:absolute; top:14px; right:18px; font-size:1.4rem; cursor:pointer;
+      color:var(--text-light); background:none; border:none;
+    }
+    .modal-title { font-size:1.6rem; font-weight:700; color:var(--text-dark); margin-bottom:8px; }
+    .modal-sub { font-size:.9rem; color:var(--text-mid); margin-bottom:24px; }
+    .modal-upi { font-size:1.5rem; font-weight:700; color:var(--deep-brown); font-family:'Cormorant Garamond',serif; background:var(--peach-light); padding:14px 24px; border-radius:var(--radius-sm); margin-bottom:20px; display:block; }
+    .modal-note { font-size:.82rem; color:var(--text-light); line-height:1.6; }
+
+    @media(max-width:768px) {
+      .campaigns-grid { grid-template-columns:1fr; }
+      .payment-box { padding:36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo/ngoLogo.jpg" alt="PRJ Care Foundation Logo" />
+      <span class="nav-logo-text">PRJ <span>Care</span> Foundation</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="recognitions.html">Recognitions</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contribute.html" class="nav-cta">Contribute Now</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-content" data-aos="fade-up">
+    <p class="page-breadcrumb"><a href="index.html">Home</a> › Contribute Now</p>
+    <span class="section-tag">Give Back</span>
+    <h1>Contribute Now</h1>
+    <p>"Be the reason someone believes in goodness today." Your support helps us run free education classes, celebrations, health camps, and more for underprivileged children in Dwarka, New Delhi.</p>
+  </div>
+</section>
+
+<!-- HOW TO CONTRIBUTE -->
+<section class="how-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">How You Can Help</span>
+    <h2 class="section-title">Ways to Contribute</h2>
+  </div>
+  <div class="how-grid">
+    <div class="how-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="how-icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="38" height="38"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <h3>Financial Support</h3>
+      <p>Donate via UPI or bank transfer. Every rupee directly funds education, celebrations, and health initiatives.</p>
+    </div>
+    <div class="how-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="how-icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="38" height="38"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <h3>Volunteer</h3>
+      <p>Spend time with children, teach skills, or help organize events. Your time is the most valuable gift.</p>
+    </div>
+    <div class="how-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="how-icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="38" height="38"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+      <h3>Donate Supplies</h3>
+      <p>Books, stationery, snacks, clothes — donate essentials that directly help our children thrive.</p>
+    </div>
+    <div class="how-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="how-icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="38" height="38"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+      <h3>Spread the Word</h3>
+      <p>Share our story on social media. Awareness brings more hearts and hands to the cause.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVE CAMPAIGNS -->
+<section class="campaigns-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Active Campaigns</span>
+    <h2 class="section-title">Support a Cause</h2>
+    <p class="section-sub">Choose a campaign close to your heart and make a difference today</p>
+  </div>
+  <div class="campaigns-filter" data-aos="fade-up" data-aos-delay="100">
+    <button class="camp-filter-btn active" data-cat="all">All</button>
+    <button class="camp-filter-btn" data-cat="Education">Education</button>
+    <button class="camp-filter-btn" data-cat="Health">Health</button>
+    <button class="camp-filter-btn" data-cat="Events">Events</button>
+    <button class="camp-filter-btn" data-cat="General">General</button>
+  </div>
+  <div class="campaigns-grid" id="campaignsGrid">
+    <!-- Populated by JS from localStorage + defaults -->
+  </div>
+</section>
+
+<!-- UPI PAYMENT -->
+<section class="payment-section">
+  <div class="payment-box" data-aos="fade-up">
+    <div style="margin-bottom:16px;display:flex;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.8" width="42" height="42"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+    <h2>Pay via UPI</h2>
+    <p>Scan QR code or use UPI ID to donate directly. All contributions go towards our children's programmes.</p>
+    <div class="upi-details">
+      <p class="upi-label">UPI ID</p>
+      <p class="upi-id">prjcarefoundation@upi</p>
+    </div>
+    <div class="qr-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--warm-brown)" stroke-width="1.5" width="48" height="48"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><rect x="19" y="14" width="2" height="2"/><rect x="14" y="19" width="2" height="2"/><rect x="18" y="18" width="3" height="3"/></svg>
+      <p>QR Code</p>
+      <p style="font-size:.7rem;color:var(--text-light);">Scan to Pay</p>
+    </div>
+    <a href="https://wa.me/919910954537?text=Hello%21%20I%20have%20made%20a%20donation%20to%20PRJ%20Care%20Foundation%20via%20UPI.%20Please%20confirm%20receipt." target="_blank" class="btn-whatsapp" style="display:inline-flex;margin:0 auto;">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Notify Us on WhatsApp After Paying
+    </a>
+    <p class="payment-note">After making a payment, please send us a WhatsApp message with your name and transaction ID so we can acknowledge your contribution.</p>
+  </div>
+</section>
+
+<!-- IMPACT NUMBERS -->
+<section class="impact-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Our Impact</span>
+    <h2 class="section-title">Your Support At Work</h2>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-card" data-aos="zoom-in" data-aos-delay="0">
+      <p class="impact-num">500+</p>
+      <p class="impact-label">Children Supported</p>
+    </div>
+    <div class="impact-card" data-aos="zoom-in" data-aos-delay="80">
+      <p class="impact-num">9+</p>
+      <p class="impact-label">Years of Service</p>
+    </div>
+    <div class="impact-card" data-aos="zoom-in" data-aos-delay="160">
+      <p class="impact-num">50+</p>
+      <p class="impact-label">Events Organized</p>
+    </div>
+    <div class="impact-card" data-aos="zoom-in" data-aos-delay="240">
+      <p class="impact-num">15+</p>
+      <p class="impact-label">Awards Won</p>
+    </div>
+  </div>
+</section>
+
+<!-- DONATE MODAL -->
+<div class="modal-overlay" id="donateModal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div style="margin-bottom:12px;display:flex;justify-content:center;"><svg viewBox="0 0 24 24" fill="var(--rose)" width="36" height="36"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+    <h3 class="modal-title" id="modalTitle">Donate to Campaign</h3>
+    <p class="modal-sub" id="modalSub">Your contribution makes a real difference.</p>
+    <span class="modal-upi">prjcarefoundation@upi</span>
+    <a href="https://wa.me/919910954537?text=Hello!%20I%20have%20donated%20to%20PRJ%20Care%20Foundation.%20Please%20confirm." target="_blank" class="btn-whatsapp" style="display:inline-flex;margin-bottom:16px;">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Notify Us on WhatsApp
+    </a>
+    <p class="modal-note">After paying, send us a WhatsApp message with your name and transaction ID. Thank you for your kindness.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <img src="images/logo/ngoLogo.jpg" alt="PRJ Care Foundation" class="footer-logo" />
+      <h3>PRJ Care Foundation</h3>
+      <p>Empowering Lives & Actualising True Potential.</p>
+      <p class="footer-tagline"><em>"Join us in laying the foundation for a bright future of our country."</em></p>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contribute.html">Contribute Now</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>B-705, Ground Floor, Vasundhra Apartments,<br/>Sector-6, Dwarka, New Delhi – 110076</p>
+      <p><a href="tel:9910954537">9910954537</a></p>
+      <p><a href="mailto:prjcarefoundation@gmail.com">prjcarefoundation@gmail.com</a></p>
+    </div>
+    <div class="footer-newsletter">
+      <h4>Write To Us</h4>
+      <form class="footer-form" id="footerForm">
+        <select class="footer-input"><option value="" disabled selected>Select Subject</option><option>Donate</option><option>Volunteer</option><option>Others</option></select>
+        <input type="email" placeholder="Your email address" class="footer-input" required />
+        <textarea placeholder="Your message..." class="footer-input footer-textarea" rows="3"></textarea>
+        <button type="submit" class="btn-primary">Send Message</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-disclaimer">
+    <p><strong>Disclaimer:</strong> No third party agency is working on behalf of PRJ CARE for any recruitment, trainings, camps or other activities. PRJ CARE doesn't charge any money from anyone.</p>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 PRJ Care Foundation NGO. All rights reserved. Made with love for a better India.</p>
+    <div class="footer-social-mini">
+      <a href="https://www.instagram.com/prjcarefoundation/" target="_blank">Instagram</a>
+      <a href="https://www.linkedin.com/company/prj-care-foundation/" target="_blank">LinkedIn</a>
+      <a href="https://x.com/Prjcare14" target="_blank">X (Twitter)</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<a href="https://wa.me/919910954537?text=Hello%20PRJ%20Care%20Foundation!%20I%20would%20like%20to%20contribute." target="_blank" class="whatsapp-fab" aria-label="Chat on WhatsApp">
+  <div class="whatsapp-pulse"></div>
+  <svg viewBox="0 0 24 24" fill="white" width="30" height="30"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="whatsapp-tooltip">Donate via WhatsApp</span>
+</a>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({ duration:650, once:true, offset:50 });
+
+// NAV
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>30),{passive:true});
+const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');navLinks.classList.toggle('open');});
+
+// DEFAULT CAMPAIGNS
+const defaultCampaigns = [
+  {
+    id:'camp1', title:'Free Education Programme 2026', category:'Education',
+    desc:'Fund free basic education classes for underprivileged children in Dwarka. We need notebooks, pens, and teaching aids.',
+    image:'images/grid/educationgrid.jpg', target:50000, raised:32000
+  },
+  {
+    id:'camp2', title:'Monthly Birthday Celebrations', category:'Events',
+    desc:'Every child deserves to feel special on their birthday. Help us celebrate monthly birthdays with snacks, gifts, and love.',
+    image:'images/slides/a4.jpg', target:15000, raised:9500
+  },
+  {
+    id:'camp3', title:'Health & Yoga Camp 2026', category:'Health',
+    desc:'Yoga sessions, health check-ups, and wellness drives for the community. Support a healthy Dwarka.',
+    image:'images/slides/yoga1.jpg', target:30000, raised:18000
+  },
+  {
+    id:'camp4', title:'Plantation & Environmental Drive', category:'General',
+    desc:'Plant trees, spread awareness about plastic pollution, and support our earth day initiatives.',
+    image:'images/slides/a5.jpg', target:20000, raised:14500
+  },
+  {
+    id:'camp5', title:'Independence Day Celebration', category:'Events',
+    desc:'Grand Independence Day programme for children — flag hoisting, cultural programmes, sweets and patriotic pride.',
+    image:'images/grid/republic daygrid.jpg', target:25000, raised:10000
+  },
+  {
+    id:'camp6', title:'Cancer Awareness Camp', category:'Health',
+    desc:'Awareness sessions on cancer prevention in partnership with Manipal Hospital, Dwarka. Help us save lives.',
+    image:'images/slides/a7.jpg', target:40000, raised:22000
+  }
+];
+
+function getCampaigns() {
+  const stored = localStorage.getItem('prj_campaigns');
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      return [...defaultCampaigns, ...parsed];
+    } catch(_) { return defaultCampaigns; }
+  }
+  return defaultCampaigns;
+}
+
+function pct(raised, target) {
+  return Math.min(100, Math.round((raised / target) * 100));
+}
+
+function renderCampaigns(filter='all') {
+  const grid = document.getElementById('campaignsGrid');
+  let camps = getCampaigns();
+  if (filter !== 'all') camps = camps.filter(c => c.category === filter);
+
+  grid.innerHTML = camps.map((c, i) => {
+    const p = pct(c.raised, c.target);
+    const waMsg = encodeURIComponent(`Hello PRJ Care Foundation! I would like to donate to your campaign: "${c.title}".`);
+    return `
+      <div class="campaign-card" data-cat="${c.category}" data-aos="fade-up" data-aos-delay="${(i%3)*100}">
+        <div class="campaign-img">${c.image ? `<img src="${c.image}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'" />` : ''}</div>
+        <div class="campaign-body">
+          <p class="campaign-cat">${c.category}</p>
+          <h3 class="campaign-title">${c.title}</h3>
+          <p class="campaign-desc">${c.desc}</p>
+          <div class="progress-wrap">
+            <div class="progress-labels">
+              <span>₹${c.raised.toLocaleString('en-IN')} raised</span>
+              <span>${p}% of ₹${c.target.toLocaleString('en-IN')}</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width:0%" data-width="${p}%"></div>
+            </div>
+          </div>
+          <div class="campaign-actions">
+            <button class="donate-btn" onclick="openModal('${c.title}')">Donate Now</button>
+            <a href="https://wa.me/919910954537?text=${waMsg}" target="_blank" class="wa-donate-btn" title="WhatsApp"><svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Animate progress bars after render
+  setTimeout(() => {
+    document.querySelectorAll('.progress-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.width;
+    });
+    AOS.refresh();
+  }, 100);
+}
+
+// FILTER
+document.querySelectorAll('.camp-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.camp-filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCampaigns(btn.dataset.cat);
+  });
+});
+
+// MODAL
+function openModal(title) {
+  document.getElementById('modalTitle').textContent = 'Donate: ' + title;
+  document.getElementById('modalSub').textContent = 'Use UPI below or WhatsApp us to confirm your donation.';
+  document.getElementById('donateModal').classList.add('open');
+}
+document.getElementById('modalClose').addEventListener('click',()=>{document.getElementById('donateModal').classList.remove('open');});
+document.getElementById('donateModal').addEventListener('click',e=>{if(e.target===document.getElementById('donateModal'))document.getElementById('donateModal').classList.remove('open');});
+window.openModal=openModal;
+
+// FOOTER FORM
+document.getElementById('footerForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const btn=e.target.querySelector('button');
+  btn.textContent='✓ Sent!'; btn.style.background='#2d6a4f';
+  setTimeout(()=>{btn.textContent='Send Message';btn.style.background='';e.target.reset();},3000);
+});
+
+renderCampaigns();
+</script>
+</body>
+</html>

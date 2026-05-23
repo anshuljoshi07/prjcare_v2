@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | PRJ Care Foundation</title>
+  <link rel="icon" href="images/logo/ngoLogo.jpg" type="image/jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    body { background:var(--bg); }
+
+    /* ── LOGIN SCREEN ── */
+    .login-screen {
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,#fde8d0,#fdefef,#fce7eb);
+      padding:24px;
+    }
+    .login-box {
+      background:var(--cream); border-radius:var(--radius); padding:52px 44px;
+      max-width:420px; width:100%; text-align:center;
+      box-shadow:var(--shadow-lg); border:1px solid rgba(205,187,167,.25);
+    }
+    .login-box img { width:80px; border-radius:50%; margin:0 auto 20px; display:block; }
+    .login-box h2 { font-size:1.8rem; font-weight:700; color:var(--text-dark); margin-bottom:6px; }
+    .login-box p { font-size:.9rem; color:var(--text-mid); margin-bottom:28px; }
+    .login-input {
+      width:100%; background:var(--bg); border:1.5px solid rgba(205,187,167,.4);
+      border-radius:var(--radius-sm); color:var(--text-dark);
+      padding:13px 16px; font-size:.95rem; font-family:'Mulish',sans-serif;
+      outline:none; margin-bottom:14px;
+      transition:border-color var(--transition),box-shadow var(--transition);
+    }
+    .login-input:focus { border-color:var(--rose); box-shadow:0 0 0 3px rgba(244,63,94,.1); }
+    .login-btn {
+      width:100%; background:var(--rose); color:#fff; border:none;
+      border-radius:var(--radius-pill); padding:13px;
+      font-size:1rem; font-weight:700; font-family:'Mulish',sans-serif;
+      cursor:pointer; transition:background var(--transition);
+      box-shadow:0 4px 18px rgba(244,63,94,.3);
+    }
+    .login-btn:hover { background:var(--rose-hover); }
+    .login-error { color:var(--rose); font-size:.85rem; margin-top:10px; display:none; }
+
+    /* ── ADMIN PANEL ── */
+    .admin-panel { display:none; min-height:100vh; }
+    .admin-header {
+      background:var(--footer-bg); color:var(--footer-text);
+      padding:0 28px; height:65px;
+      display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:100;
+      box-shadow:0 2px 12px rgba(0,0,0,.2);
+    }
+    .admin-header-brand { display:flex; align-items:center; gap:10px; }
+    .admin-header-brand img { width:36px; border-radius:50%; }
+    .admin-header-brand h1 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:700; color:#fff; }
+    .admin-header-brand span { font-size:.75rem; color:var(--gold); font-weight:600; text-transform:uppercase; letter-spacing:.1em; }
+    .admin-logout {
+      background:rgba(255,255,255,.12); color:#fff; border:none; border-radius:var(--radius-pill);
+      padding:8px 18px; font-size:.85rem; font-weight:700; cursor:pointer;
+      font-family:'Mulish',sans-serif; transition:background var(--transition);
+    }
+    .admin-logout:hover { background:rgba(255,255,255,.22); }
+
+    .admin-body { max-width:1200px; margin:0 auto; padding:40px 24px; display:grid; grid-template-columns:260px 1fr; gap:32px; }
+
+    /* ── SIDEBAR ── */
+    .admin-sidebar { display:flex; flex-direction:column; gap:8px; }
+    .admin-nav-btn {
+      background:var(--cream); border:1px solid rgba(205,187,167,.2);
+      border-radius:var(--radius-sm); padding:13px 18px;
+      font-size:.92rem; font-weight:700; color:var(--text-mid);
+      cursor:pointer; text-align:left; font-family:'Mulish',sans-serif;
+      transition:all var(--transition); display:flex; align-items:center; gap:10px;
+    }
+    .admin-nav-btn:hover,.admin-nav-btn.active {
+      background:var(--rose); color:#fff; border-color:var(--rose);
+    }
+
+    /* ── CONTENT AREA ── */
+    .admin-content { background:var(--cream); border-radius:var(--radius); padding:36px; box-shadow:var(--shadow-sm); border:1px solid rgba(205,187,167,.2); }
+    .admin-section { display:none; }
+    .admin-section.active { display:block; }
+    .admin-section h2 { font-size:1.7rem; font-weight:700; color:var(--text-dark); margin-bottom:6px; }
+    .admin-section > p { font-size:.9rem; color:var(--text-mid); margin-bottom:28px; }
+
+    /* ── STATS CARDS ── */
+    .admin-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:16px; margin-bottom:36px; }
+    .admin-stat {
+      background:var(--bg); border-radius:var(--radius-sm); padding:22px;
+      text-align:center; border:1px solid rgba(205,187,167,.2);
+    }
+    .admin-stat-num { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:700; color:var(--rose); }
+    .admin-stat-label { font-size:.78rem; color:var(--text-light); font-weight:600; text-transform:uppercase; letter-spacing:.08em; margin-top:4px; }
+
+    /* ── FORM ── */
+    .admin-form { max-width:600px; }
+    .admin-field { margin-bottom:18px; }
+    .admin-label { display:block; font-size:.82rem; font-weight:700; color:var(--text-mid); margin-bottom:6px; text-transform:uppercase; letter-spacing:.08em; }
+    .admin-input {
+      width:100%; background:var(--bg); border:1.5px solid rgba(205,187,167,.4);
+      border-radius:var(--radius-sm); color:var(--text-dark);
+      padding:12px 16px; font-size:.93rem; font-family:'Mulish',sans-serif;
+      outline:none; transition:border-color var(--transition),box-shadow var(--transition);
+    }
+    .admin-input:focus { border-color:var(--rose); box-shadow:0 0 0 3px rgba(244,63,94,.1); }
+    .admin-textarea { resize:vertical; min-height:100px; }
+    .admin-submit {
+      background:var(--rose); color:#fff; border:none; border-radius:var(--radius-pill);
+      padding:12px 32px; font-size:.95rem; font-weight:700; font-family:'Mulish',sans-serif;
+      cursor:pointer; transition:background var(--transition); margin-top:4px;
+    }
+    .admin-submit:hover { background:var(--rose-hover); }
+
+    /* ── TABLE ── */
+    .admin-table-wrap { overflow-x:auto; margin-top:8px; }
+    .admin-table { width:100%; border-collapse:collapse; font-size:.88rem; }
+    .admin-table th { background:var(--peach-light); color:var(--deep-brown); font-weight:700; padding:12px 14px; text-align:left; border-bottom:2px solid rgba(205,187,167,.3); }
+    .admin-table td { padding:12px 14px; border-bottom:1px solid rgba(205,187,167,.2); color:var(--text-mid); }
+    .admin-table tr:hover td { background:var(--peach-light); }
+    .badge-cat { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; padding:2px 10px; border-radius:var(--radius-pill); background:var(--rose-light); color:var(--rose); }
+    .action-btn {
+      background:none; border:1.5px solid; border-radius:var(--radius-pill);
+      padding:4px 12px; font-size:.78rem; font-weight:700; cursor:pointer; font-family:'Mulish',sans-serif;
+      transition:all var(--transition); margin-right:6px;
+    }
+    .btn-edit { border-color:var(--tan); color:var(--deep-brown); }
+    .btn-edit:hover { background:var(--tan); color:#fff; }
+    .btn-delete { border-color:var(--rose); color:var(--rose); }
+    .btn-delete:hover { background:var(--rose); color:#fff; }
+    .progress-mini { height:6px; background:rgba(205,187,167,.3); border-radius:50px; margin-top:4px; }
+    .progress-mini-fill { height:100%; border-radius:50px; background:linear-gradient(90deg,var(--rose),var(--gold)); }
+
+    /* ── SUCCESS TOAST ── */
+    .toast {
+      position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+      background:var(--footer-bg); color:#fff; padding:14px 28px;
+      border-radius:var(--radius-pill); font-weight:700; font-size:.9rem;
+      z-index:9998; opacity:0; transition:opacity var(--transition);
+      box-shadow:var(--shadow-md); pointer-events:none;
+    }
+    .toast.show { opacity:1; }
+
+    @media(max-width:768px) {
+      .admin-body { grid-template-columns:1fr; }
+      .admin-sidebar { flex-direction:row; flex-wrap:wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN SCREEN ── -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <img src="images/logo/ngoLogo.jpg" alt="Logo" />
+    <h2>Admin Panel</h2>
+    <p>PRJ Care Foundation — Secure Access</p>
+    <input type="text" class="login-input" id="loginUser" placeholder="Username" autocomplete="off" />
+    <input type="password" class="login-input" id="loginPass" placeholder="Password" />
+    <button class="login-btn" onclick="doLogin()">Login</button>
+    <p class="login-error" id="loginError">Incorrect credentials. Please try again.</p>
+    <p style="font-size:.75rem;color:var(--text-light);margin-top:20px;">Default: admin / prjcare2026</p>
+  </div>
+</div>
+
+<!-- ── ADMIN PANEL ── -->
+<div class="admin-panel" id="adminPanel">
+  <header class="admin-header">
+    <div class="admin-header-brand">
+      <img src="images/logo/ngoLogo.jpg" alt="Logo" />
+      <div>
+        <h1>Admin Panel</h1>
+        <span>PRJ Care Foundation</span>
+      </div>
+    </div>
+    <button class="admin-logout" onclick="doLogout()">Logout →</button>
+  </header>
+
+  <div class="admin-body">
+    <!-- SIDEBAR -->
+    <nav class="admin-sidebar">
+      <button class="admin-nav-btn active" onclick="showSection('dashboard',this)">Dashboard</button>
+      <button class="admin-nav-btn" onclick="showSection('campaigns',this)">Campaigns</button>
+      <button class="admin-nav-btn" onclick="showSection('addCampaign',this)">+ Add Campaign</button>
+      <button class="admin-nav-btn" onclick="showSection('events',this)">Events</button>
+      <a href="index.html" target="_blank" class="admin-nav-btn" style="text-align:left;display:flex;text-decoration:none;">View Website</a>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="admin-content">
+
+      <!-- DASHBOARD -->
+      <div class="admin-section active" id="sec-dashboard">
+        <h2>Dashboard Overview</h2>
+        <p>Welcome back! Here's a snapshot of PRJ Care Foundation's current status.</p>
+        <div class="admin-stats">
+          <div class="admin-stat"><p class="admin-stat-num" id="dashCamps">0</p><p class="admin-stat-label">Active Campaigns</p></div>
+          <div class="admin-stat"><p class="admin-stat-num">500+</p><p class="admin-stat-label">Children Helped</p></div>
+          <div class="admin-stat"><p class="admin-stat-num">20</p><p class="admin-stat-label">Events (Instagram)</p></div>
+          <div class="admin-stat"><p class="admin-stat-num">9+</p><p class="admin-stat-label">Years of Service</p></div>
+        </div>
+        <h3 style="font-size:1.2rem;font-weight:700;color:var(--deep-brown);margin-bottom:14px;">Quick Actions</h3>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="admin-submit" onclick="showSection('addCampaign',null)">+ Add New Campaign</button>
+          <a href="contribute.html" target="_blank" style="display:inline-block;padding:12px 24px;border-radius:var(--radius-pill);border:1.5px solid var(--rose);color:var(--rose);font-weight:700;font-size:.95rem;text-decoration:none;">View Contribute Page</a>
+          <a href="events.html" target="_blank" style="display:inline-block;padding:12px 24px;border-radius:var(--radius-pill);border:1.5px solid var(--tan);color:var(--deep-brown);font-weight:700;font-size:.95rem;text-decoration:none;">View Events Page</a>
+        </div>
+      </div>
+
+      <!-- CAMPAIGNS LIST -->
+      <div class="admin-section" id="sec-campaigns">
+        <h2>All Campaigns</h2>
+        <p>Manage your fundraising campaigns. Edit targets or remove completed campaigns.</p>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="campaignTable">
+            <thead><tr><th>Title</th><th>Category</th><th>Raised / Target</th><th>Progress</th><th>Actions</th></tr></thead>
+            <tbody id="campaignTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ADD CAMPAIGN -->
+      <div class="admin-section" id="sec-addCampaign">
+        <h2>Add New Campaign</h2>
+        <p>Create a fundraising campaign that will appear on the Contribute Now page.</p>
+        <form class="admin-form" id="addCampaignForm">
+          <div class="admin-field">
+            <label class="admin-label">Campaign Title *</label>
+            <input type="text" class="admin-input" id="newTitle" placeholder="e.g., Annual Education Fund 2026" required />
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Category *</label>
+            <select class="admin-input" id="newCat" required>
+              <option value="" disabled selected>Select category</option>
+              <option value="Education">Education</option>
+              <option value="Health">Health</option>
+              <option value="Events">Events</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Description *</label>
+            <textarea class="admin-input admin-textarea" id="newDesc" placeholder="Describe what this campaign is for and how funds will be used..." required></textarea>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Image Path (optional)</label>
+            <input type="text" class="admin-input" id="newImage" placeholder="e.g., images/slides/a3.jpg" />
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Target Amount (₹) *</label>
+            <input type="number" class="admin-input" id="newTarget" placeholder="e.g., 50000" min="1000" required />
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Amount Raised So Far (₹)</label>
+            <input type="number" class="admin-input" id="newRaised" placeholder="0" min="0" value="0" />
+          </div>
+          <button type="submit" class="admin-submit">Add Campaign</button>
+        </form>
+      </div>
+
+      <!-- UPDATE RAISED / EVENTS SECTION -->
+      <div class="admin-section" id="sec-events">
+        <h2>Events Overview</h2>
+        <p>All 20 events are loaded from <code>data/events.json</code>. To add or edit events, update that file directly.</p>
+        <div style="background:var(--peach-light);border-radius:var(--radius-sm);padding:20px 24px;border:1px solid rgba(205,187,167,.3);margin-bottom:24px;">
+          <h4 style="font-weight:700;color:var(--deep-brown);margin-bottom:8px;">Events Data File</h4>
+          <p style="font-size:.88rem;color:var(--text-mid);">Location: <code>data/events.json</code><br/>Contains all 20 Instagram events with captions, dates, categories, and hashtags. Edit this file to update event content.</p>
+        </div>
+        <div style="background:var(--bg);border-radius:var(--radius-sm);padding:20px 24px;border:1px solid rgba(205,187,167,.2);">
+          <h4 style="font-weight:700;color:var(--deep-brown);margin-bottom:12px;">Events by Category</h4>
+          <div id="eventStats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── AUTH ──
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'prjcare2026';
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value;
+  const p = document.getElementById('loginPass').value;
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    loadDashboard();
+    loadCampaigns();
+    loadEventStats();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    setTimeout(() => document.getElementById('loginError').style.display = 'none', 3000);
+  }
+}
+document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+function doLogout() {
+  document.getElementById('adminPanel').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+}
+
+// ── NAVIGATION ──
+function showSection(id, btn) {
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  if (btn) {
+    document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  if (id === 'campaigns') loadCampaigns();
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── CAMPAIGNS ──
+const DEFAULT_CAMPAIGNS = [
+  { id: 'd1', title: 'Free Education Programme 2026', category: 'Education', desc: 'Fund free classes for underprivileged children.', image: 'images/grid/educationgrid.jpg', target: 50000, raised: 32000 },
+  { id: 'd2', title: 'Monthly Birthday Celebrations', category: 'Events', desc: 'Celebrate monthly birthdays with snacks and gifts.', image: 'images/slides/a4.jpg', target: 15000, raised: 9500 },
+  { id: 'd3', title: 'Health & Yoga Camp 2026', category: 'Health', desc: 'Yoga sessions and health awareness drives.', image: 'images/slides/yoga1.jpg', target: 30000, raised: 18000 },
+  { id: 'd4', title: 'Plantation & Environmental Drive', category: 'General', desc: 'Tree plantation and eco-awareness campaigns.', image: 'images/slides/a5.jpg', target: 20000, raised: 14500 },
+];
+
+function getCustomCampaigns() {
+  try { return JSON.parse(localStorage.getItem('prj_campaigns') || '[]'); } catch { return []; }
+}
+function saveCustomCampaigns(arr) {
+  localStorage.setItem('prj_campaigns', JSON.stringify(arr));
+}
+
+function loadDashboard() {
+  const total = DEFAULT_CAMPAIGNS.length + getCustomCampaigns().length;
+  document.getElementById('dashCamps').textContent = total;
+}
+
+function loadCampaigns() {
+  const all = [...DEFAULT_CAMPAIGNS, ...getCustomCampaigns()];
+  const tbody = document.getElementById('campaignTableBody');
+  tbody.innerHTML = all.map(c => {
+    const pct = Math.min(100, Math.round((c.raised / c.target) * 100));
+    const isDefault = DEFAULT_CAMPAIGNS.find(d => d.id === c.id);
+    return `
+      <tr>
+        <td><strong>${c.title}</strong></td>
+        <td><span class="badge-cat">${c.category}</span></td>
+        <td>₹${c.raised.toLocaleString('en-IN')} / ₹${c.target.toLocaleString('en-IN')}</td>
+        <td style="min-width:100px">
+          ${pct}%
+          <div class="progress-mini"><div class="progress-mini-fill" style="width:${pct}%"></div></div>
+        </td>
+        <td>
+          ${!isDefault ? `<button class="action-btn btn-delete" onclick="deleteCampaign('${c.id}')">Delete</button>` : '<span style="font-size:.78rem;color:var(--text-light);">Default</span>'}
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function deleteCampaign(id) {
+  const camps = getCustomCampaigns().filter(c => c.id !== id);
+  saveCustomCampaigns(camps);
+  loadCampaigns();
+  loadDashboard();
+  showToast('Campaign deleted successfully.');
+}
+window.deleteCampaign = deleteCampaign;
+
+document.getElementById('addCampaignForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const newCamp = {
+    id: 'c_' + Date.now(),
+    title: document.getElementById('newTitle').value,
+    category: document.getElementById('newCat').value,
+    desc: document.getElementById('newDesc').value,
+    image: document.getElementById('newImage').value || '',
+    target: parseInt(document.getElementById('newTarget').value, 10),
+    raised: parseInt(document.getElementById('newRaised').value, 10) || 0,
+  };
+  const camps = getCustomCampaigns();
+  camps.push(newCamp);
+  saveCustomCampaigns(camps);
+  e.target.reset();
+  loadDashboard();
+  showToast('Campaign added! It will appear on the Contribute page.');
+  showSection('campaigns', document.querySelectorAll('.admin-nav-btn')[1]);
+});
+
+// ── EVENT STATS ──
+async function loadEventStats() {
+  try {
+    const res = await fetch('data/events.json');
+    const data = await res.json();
+    const counts = {};
+    data.events.forEach(e => { counts[e.category] = (counts[e.category] || 0) + 1; });
+    document.getElementById('eventStats').innerHTML = Object.entries(counts).map(([cat, count]) => `
+      <div style="background:var(--peach-light);border-radius:var(--radius-sm);padding:14px 16px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--rose);">${count}</div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">${cat}</div>
+      </div>
+    `).join('');
+  } catch(err) {
+    document.getElementById('eventStats').innerHTML = '<p style="color:var(--text-light);">Could not load events data.</p>';
+  }
+}
+</script>
+</body>
+</html>

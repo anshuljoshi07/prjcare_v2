@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | PRJ Care Foundation</title>
+  <link rel="icon" href="images/logo/ngoLogo.jpg" type="image/jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Mulish:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    .page-hero {
+      padding:140px 24px 80px;
+      background:linear-gradient(135deg,#fde8d0 0%,#fdefef 50%,#fce7eb 100%);
+      text-align:center; position:relative; overflow:hidden;
+    }
+    .page-hero h1{font-size:clamp(2.6rem,6vw,4rem);font-weight:700;color:var(--text-dark);margin-bottom:16px;}
+    .page-hero p{font-size:1.05rem;color:var(--text-mid);max-width:560px;margin:0 auto;}
+    .page-breadcrumb{font-size:.82rem;color:var(--text-light);margin-bottom:16px;}
+    .page-breadcrumb a{color:var(--rose);font-weight:600;}
+
+    /* ── STORY SECTION ── */
+    .story-section { padding:90px 24px; background:var(--cream); }
+    .story-inner {
+      max-width:1100px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+    }
+    .story-img img {
+      width:100%; border-radius:var(--radius); box-shadow:var(--shadow-md);
+      object-fit:cover; max-height:480px;
+    }
+    .story-text h2 {
+      font-size:clamp(1.8rem,4vw,2.8rem); font-weight:700;
+      color:var(--text-dark); margin-bottom:20px; line-height:1.2;
+    }
+    .story-text p { font-size:.98rem; color:var(--text-mid); line-height:1.8; margin-bottom:16px; }
+    .story-text .highlight {
+      font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-style:italic;
+      color:var(--rose); margin:20px 0; padding-left:18px;
+      border-left:3px solid var(--rose); display:block; line-height:1.6;
+    }
+
+    /* ── MISSION VISION VALUES ── */
+    .mvv-section { padding:80px 24px; background:var(--peach-light); }
+    .mvv-grid {
+      max-width:1100px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
+    }
+    .mvv-card {
+      background:var(--cream); border-radius:var(--radius); padding:40px 28px;
+      text-align:center; border:1px solid rgba(205,187,167,.25);
+      box-shadow:var(--shadow-sm);
+    }
+    .mvv-icon { font-size:2.8rem; margin-bottom:16px; display:block; }
+    .mvv-icon-svg { margin:0 auto 16px; width:60px; height:60px; display:flex; align-items:center; justify-content:center; background:var(--rose-light); border-radius:50%; }
+    .init-detail-icon { margin-bottom:14px; width:44px; height:44px; display:flex; align-items:center; justify-content:center; background:var(--rose-light); border-radius:10px; }
+    .mvv-card h3 { font-size:1.5rem; font-weight:700; color:var(--deep-brown); margin-bottom:14px; }
+    .mvv-card p { font-size:.93rem; color:var(--text-mid); line-height:1.75; }
+
+    /* ── TIMELINE ── */
+    .timeline-section { padding:90px 24px; background:var(--bg); }
+    .timeline { max-width:800px; margin:0 auto; position:relative; }
+    .timeline::before {
+      content:''; position:absolute; left:20px; top:0; bottom:0;
+      width:2px; background:linear-gradient(to bottom,var(--rose),var(--gold));
+    }
+    .timeline-item {
+      padding:0 0 40px 56px; position:relative;
+    }
+    .timeline-dot {
+      position:absolute; left:10px; top:4px;
+      width:22px; height:22px; border-radius:50%;
+      background:var(--rose); border:3px solid var(--cream);
+      box-shadow:0 0 0 3px rgba(244,63,94,.2);
+    }
+    .timeline-year {
+      font-size:.78rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.1em; color:var(--rose); margin-bottom:6px;
+    }
+    .timeline-item h4 {
+      font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:700;
+      color:var(--text-dark); margin-bottom:8px;
+    }
+    .timeline-item p { font-size:.92rem; color:var(--text-mid); line-height:1.7; }
+
+    /* ── TEAM ── */
+    .team-section { padding:80px 24px; background:var(--peach-mid); }
+    .team-grid {
+      max-width:1000px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:28px;
+    }
+    .team-card {
+      background:var(--cream); border-radius:var(--radius); padding:36px 24px;
+      text-align:center; box-shadow:var(--shadow-sm); border:1px solid rgba(205,187,167,.2);
+      transition:transform var(--transition),box-shadow var(--transition);
+    }
+    .team-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-md); }
+    .team-avatar {
+      width:90px; height:90px; border-radius:50%; background:var(--peach-light);
+      margin:0 auto 16px; display:flex; align-items:center; justify-content:center;
+      font-size:2.5rem; border:3px solid var(--rose-light);
+    }
+    .team-name { font-size:1.15rem; font-weight:700; color:var(--text-dark); margin-bottom:4px; }
+    .team-role { font-size:.82rem; color:var(--rose); font-weight:600; text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; }
+    .team-desc { font-size:.85rem; color:var(--text-mid); line-height:1.65; }
+
+    /* ── INITIATIVES DETAIL ── */
+    .initiatives-detail { padding:80px 24px; background:var(--cream); }
+    .initiatives-detail-grid {
+      max-width:1100px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:24px;
+    }
+    .init-detail-card {
+      background:var(--bg); border-radius:var(--radius); padding:28px 22px;
+      border:1px solid rgba(205,187,167,.2); box-shadow:var(--shadow-sm);
+      transition:transform var(--transition);
+    }
+    .init-detail-card:hover { transform:translateY(-4px); }
+    .init-detail-icon { font-size:2.2rem; margin-bottom:12px; }
+    .init-detail-card h4 { font-size:1.1rem; font-weight:700; color:var(--deep-brown); margin-bottom:8px; }
+    .init-detail-card p { font-size:.88rem; color:var(--text-mid); line-height:1.65; }
+
+    @media(max-width:768px) {
+      .story-inner { grid-template-columns:1fr; gap:36px; }
+      .mvv-grid { grid-template-columns:1fr; }
+      .timeline::before { left:14px; }
+      .timeline-item { padding-left:44px; }
+      .timeline-dot { left:4px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo/ngoLogo.jpg" alt="PRJ Care Foundation Logo" />
+      <span class="nav-logo-text">PRJ <span>Care</span> Foundation</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About Us</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="recognitions.html">Recognitions</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contribute.html" class="nav-cta">Contribute Now</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-content" data-aos="fade-up">
+    <p class="page-breadcrumb"><a href="index.html">Home</a> › About Us</p>
+    <span class="section-tag">Our Story</span>
+    <h1>About PRJ Care Foundation</h1>
+    <p>Since 2017, we have been laying the foundation for a better India — one child, one community, one act of kindness at a time.</p>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-section">
+  <div class="story-inner">
+    <div class="story-img" data-aos="fade-right">
+      <img src="images/slides/a3.jpg" alt="PRJ Care Foundation Story" />
+    </div>
+    <div class="story-text" data-aos="fade-left">
+      <span class="section-tag">Who We Are</span>
+      <h2>A Legacy of Love & Service</h2>
+      <span class="highlight">"Join us in laying the foundation for a bright future of our country."</span>
+      <p>PRJ Care Foundation is a New Delhi-based NGO registered under the Society Registration Act, dedicated to empowering underprivileged communities through education, health awareness, cultural enrichment, and environmental stewardship.</p>
+      <p>Founded by Mrs. Rajni Joshi in 2017, the foundation was born out of a simple belief: that every child — regardless of their economic background — deserves access to quality education, joyful celebrations, and a dignified life.</p>
+      <p>What began as free basic education classes in Dwarka's Sector-6 has blossomed into a vibrant community initiative touching hundreds of lives every year through events, health camps, cultural programmes, and environmental drives.</p>
+      <a href="contribute.html" class="btn-primary">Support Our Mission</a>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION VISION VALUES -->
+<section class="mvv-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Our Purpose</span>
+    <h2 class="section-title">Mission, Vision & Values</h2>
+  </div>
+  <div class="mvv-grid">
+    <div class="mvv-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="mvv-icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="42" height="42"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="var(--rose)"/></svg></div>
+      <h3>Our Mission</h3>
+      <p>To provide free education, healthcare awareness, and cultural enrichment to underprivileged children and communities in Delhi — empowering them to actualize their true potential.</p>
+    </div>
+    <div class="mvv-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="mvv-icon-svg"><svg viewBox="0 0 24 24" fill="var(--gold)" width="42" height="42"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17 5.8 21.3l2.4-7.4L2 9.4h7.6z"/></svg></div>
+      <h3>Our Vision</h3>
+      <p>A society where every child has equal access to education, every family is healthy, and every community is united by compassion, dignity, and shared purpose.</p>
+    </div>
+    <div class="mvv-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="mvv-icon-svg"><svg viewBox="0 0 24 24" fill="var(--rose)" width="42" height="42"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <h3>Our Values</h3>
+      <p>Compassion · Integrity · Community · Inclusivity · Service. We believe in serving all humanity without discrimination, driven purely by love and the desire to give back.</p>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY TIMELINE -->
+<section class="timeline-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Our Journey</span>
+    <h2 class="section-title">9 Years of Impact</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item" data-aos="fade-up">
+      <div class="timeline-dot"></div>
+      <p class="timeline-year">2017</p>
+      <h4>Foundation Established</h4>
+      <p>Mrs. Rajni Joshi founded PRJ Care Foundation in Sector-6, Dwarka. The first free education classes for underprivileged children were launched.</p>
+    </div>
+    <div class="timeline-item" data-aos="fade-up" data-aos-delay="80">
+      <div class="timeline-dot"></div>
+      <p class="timeline-year">2018–2019</p>
+      <h4>Community Outreach Expands</h4>
+      <p>Plantation drives, voting awareness campaigns, and Independence Day celebrations added to the programme. First partnerships with local councillors established.</p>
+    </div>
+    <div class="timeline-item" data-aos="fade-up" data-aos-delay="160">
+      <div class="timeline-dot"></div>
+      <p class="timeline-year">2020–2021</p>
+      <h4>Health Initiatives Launched</h4>
+      <p>Yoga sessions, mental wellness programmes, and cancer awareness drives began in partnership with hospitals. The foundation continued serving through the pandemic.</p>
+    </div>
+    <div class="timeline-item" data-aos="fade-up" data-aos-delay="240">
+      <div class="timeline-dot"></div>
+      <p class="timeline-year">2022–2023</p>
+      <h4>Recognition & Growth</h4>
+      <p>Received multiple awards for outstanding contributions to education and social welfare. Expanded initiatives to include cultural festivals and community celebrations.</p>
+    </div>
+    <div class="timeline-item" data-aos="fade-up" data-aos-delay="320">
+      <div class="timeline-dot"></div>
+      <p class="timeline-year">2024–2025</p>
+      <h4>500+ Children Impacted</h4>
+      <p>Milestone: 500+ children supported. Monthly birthday celebrations, Holi, Cancer Awareness at Manipal Hospital, and Hanuman Jayanti events organized.</p>
+    </div>
+    <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+      <div class="timeline-dot"></div>
+      <p class="timeline-year">2026</p>
+      <h4>New Horizons</h4>
+      <p>Summer Sports Festival, continued education classes, community health drives, and this new digital presence — reaching more hearts than ever before.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Our People</span>
+    <h2 class="section-title">The Faces Behind the Foundation</h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="team-avatar" style="background:var(--rose-light);color:var(--rose);font-size:1.3rem;font-weight:700;font-family:'Mulish',sans-serif;">RJ</div>
+      <h3 class="team-name">Mrs. Rajni Joshi</h3>
+      <p class="team-role">Founder & President</p>
+      <p class="team-desc">The driving force of PRJ Care Foundation. Mrs. Rajni Joshi's compassion and leadership have shaped every initiative, event, and life touched by the foundation.</p>
+    </div>
+    <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="team-avatar" style="background:var(--peach-mid);color:var(--deep-brown);font-size:1.3rem;font-weight:700;font-family:'Mulish',sans-serif;">PJ</div>
+      <h3 class="team-name">Mr. Pratik Joshi</h3>
+      <p class="team-role">Founder & Education Head</p>
+      <p class="team-desc">Personally conducts education sessions for children. Mr. Pratik Joshi brings hands-on teaching in outdoor settings, making learning an adventure.</p>
+    </div>
+    <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="team-avatar" style="background:#fce7eb;color:var(--rose);font-size:1.3rem;font-weight:700;font-family:'Mulish',sans-serif;">VG</div>
+      <h3 class="team-name">Mrs. Vandana Gupta</h3>
+      <p class="team-role">Education Coordinator</p>
+      <p class="team-desc">Leads activity classes, distributes gifts to children, and inspires them to study sincerely. A pillar of the foundation's education programme.</p>
+    </div>
+    <div class="team-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="team-avatar" style="background:var(--peach-light);color:var(--warm-brown);font-size:1.3rem;font-weight:700;font-family:'Mulish',sans-serif;">PR</div>
+      <h3 class="team-name">Miss Priyanka</h3>
+      <p class="team-role">Events & Volunteer Coordinator</p>
+      <p class="team-desc">Organizes birthday celebrations, festivals, and community events. Ensures every child feels celebrated, loved, and included.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INITIATIVES -->
+<section class="initiatives-detail">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">What We Do</span>
+    <h2 class="section-title">Our Core Initiatives</h2>
+  </div>
+  <div class="initiatives-detail-grid">
+    <div class="init-detail-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="init-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="32" height="32"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <h4>Free Education Classes</h4>
+      <p>Basic education for underprivileged children — conducted by volunteers and foundation members in Sector-6, Dwarka.</p>
+    </div>
+    <div class="init-detail-card" data-aos="fade-up" data-aos-delay="80">
+      <div class="init-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="32" height="32"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 3v4M9 6l3-3 3 3"/></svg></div>
+      <h4>Monthly Birthday Celebrations</h4>
+      <p>Every child deserves to feel special. We celebrate monthly birthdays with snacks, gifts, and love for all children born that month.</p>
+    </div>
+    <div class="init-detail-card" data-aos="fade-up" data-aos-delay="160">
+      <div class="init-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="32" height="32"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <h4>Yoga & Health Drives</h4>
+      <p>Community yoga sessions and health awareness campaigns including cancer awareness at Manipal Hospital, Dwarka.</p>
+    </div>
+    <div class="init-detail-card" data-aos="fade-up" data-aos-delay="240">
+      <div class="init-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="32" height="32"><path d="M12 22V12M12 12C12 7 7 5 3 7c4 2 7 6 9 5M12 12c0-5 5-7 9-5-4 2-7 6-9 5"/></svg></div>
+      <h4>Plantation Drives</h4>
+      <p>Tree plantation, Say No to Plastic campaigns, and Earth Day awareness to protect the environment for future generations.</p>
+    </div>
+    <div class="init-detail-card" data-aos="fade-up" data-aos-delay="320">
+      <div class="init-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="32" height="32"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+      <h4>National Day Celebrations</h4>
+      <p>Republic Day, Independence Day, and national festivals celebrated with patriotic fervour, flag hoisting, and cultural events.</p>
+    </div>
+    <div class="init-detail-card" data-aos="fade-up" data-aos-delay="400">
+      <div class="init-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" width="32" height="32"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <h4>Community Outreach</h4>
+      <p>Engaging with local councillors, MPs, and community leaders to amplify our impact and bring resources to those in need.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <img src="images/logo/ngoLogo.jpg" alt="PRJ Care Foundation" class="footer-logo" />
+      <h3>PRJ Care Foundation</h3>
+      <p>Empowering Lives & Actualising True Potential.</p>
+      <p class="footer-tagline"><em>"Join us in laying the foundation for a bright future of our country."</em></p>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="contribute.html">Contribute Now</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>B-705, Ground Floor, Vasundhra Apartments,<br/>Sector-6, Dwarka, New Delhi – 110076</p>
+      <p><a href="tel:9910954537">9910954537</a></p>
+      <p><a href="mailto:prjcarefoundation@gmail.com">prjcarefoundation@gmail.com</a></p>
+    </div>
+    <div class="footer-newsletter">
+      <h4>Write To Us</h4>
+      <form class="footer-form" id="footerForm">
+        <select class="footer-input"><option value="" disabled selected>Select Subject</option><option>Volunteer</option><option>Donate</option><option>Others</option></select>
+        <input type="email" placeholder="Your email address" class="footer-input" required />
+        <textarea placeholder="Your message..." class="footer-input footer-textarea" rows="3"></textarea>
+        <button type="submit" class="btn-primary">Send Message</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 PRJ Care Foundation NGO. All rights reserved. Made with love for a better India.</p>
+    <div class="footer-social-mini">
+      <a href="https://www.instagram.com/prjcarefoundation/" target="_blank">Instagram</a>
+      <a href="https://www.linkedin.com/company/prj-care-foundation/" target="_blank">LinkedIn</a>
+      <a href="https://x.com/Prjcare14" target="_blank">X (Twitter)</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<a href="https://wa.me/919910954537?text=Hello%20PRJ%20Care%20Foundation!" target="_blank" class="whatsapp-fab" aria-label="Chat on WhatsApp">
+  <div class="whatsapp-pulse"></div>
+  <svg viewBox="0 0 24 24" fill="white" width="30" height="30"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="whatsapp-tooltip">Chat with us!</span>
+</a>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({duration:650,once:true,offset:50});
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>30),{passive:true});
+const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');navLinks.classList.toggle('open');});
+document.getElementById('footerForm').addEventListener('submit',e=>{
+  e.preventDefault();const btn=e.target.querySelector('button');
+  btn.textContent='✓ Sent!';btn.style.background='#2d6a4f';
+  setTimeout(()=>{btn.textContent='Send Message';btn.style.background='';e.target.reset();},3000);
+});
+</script>
+</body>
+</html>
