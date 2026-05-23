@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contribute Now |EKUM Foundation</title>
+  <title>Contribute Now |EKUM</title>
   <link rel="icon" href="images/logo/ngoLogo.jpg" type="image/jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -213,7 +213,7 @@
   <div class="nav-container">
     <a href="index.html" class="nav-logo">
       <img src="images/logo/ngoLogo.jpg" alt="EKUM Foundation Logo" />
-      <span class="nav-logo-text">EKUM <span>Foundation</span></span>
+      <span class="nav-logo-text">EKUM<small class="nav-initiative">an initiative by PRJ Care Foundation</small></span>
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
@@ -301,7 +301,7 @@
         <img
           id="contributeQrImg"
           src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=14&color=2c1810&bgcolor=fefcf3&data=upi%3A%2F%2Fpay%3Fpa%3Dprjcarefoundation6%40oksbi%26pn%3DPRJ%2BCare%2BFoundation%26cu%3DINR%26tn%3DDonation"
-          alt="UPI QR Code —EKUM Foundation"
+          alt="UPI QR Code — EKUM Foundation"
         />
       </div>
       <p class="contrib-qr-hint">Scan with PhonePe, GPay, Paytm, or BHIM</p>
@@ -405,7 +405,8 @@
   <div class="footer-container">
     <div class="footer-brand">
       <img src="images/logo/ngoLogo.jpg" alt="EKUM Foundation" class="footer-logo" />
-      <h3>EKUM Foundation</h3>
+      <h3>EKUM</h3>
+      <p class="footer-parent-brand">an initiative by PRJ Care Foundation</p>
       <p>Unity in Purpose, Service for All.</p>
       <p class="footer-tagline"><em>"Join us in laying the foundation for a bright future of our country."</em></p>
     </div>
@@ -440,7 +441,7 @@
     <p><strong>Disclaimer:</strong> No third party agency is working on behalf of PRJ CARE for any recruitment, trainings, camps or other activities. PRJ CARE doesn't charge any money from anyone.</p>
   </div>
   <div class="footer-bottom">
-    <p>© 2026EKUM Foundation NGO. All rights reserved. Made with love for a better India.</p>
+    <p>© 2026 EKUM · an initiative by PRJ Care Foundation. All rights reserved. Made with love for a better India.</p>
     <div class="footer-social-mini">
       <a href="https://www.instagram.com/ekumfoundation/" target="_blank">Instagram</a>
       <a href="https://www.linkedin.com/company/prj-care-foundation/" target="_blank">LinkedIn</a>
@@ -522,7 +523,7 @@ function renderCampaigns(filter='all') {
 
   grid.innerHTML = camps.map((c, i) => {
     const p = pct(c.raised, c.target);
-    const waMsg = encodeURIComponent(`HelloEKUM Foundation! I would like to donate to your campaign: "${c.title}".`);
+    const waMsg = encodeURIComponent(`HelloEKUM! I would like to donate to your campaign: "${c.title}".`);
     return `
       <div class="campaign-card" data-cat="${c.category}" data-aos="fade-up" data-aos-delay="${(i%3)*100}">
         <div class="campaign-img">${c.image ? `<img src="${c.image}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'" />` : ''}</div>
@@ -568,7 +569,7 @@ document.querySelectorAll('.camp-filter-btn').forEach(btn => {
 
 // MODAL — with live QR code
 const CONTRIB_UPI = 'prjcarefoundation6@oksbi';
-const CONTRIB_NAME = 'EKUM Foundation';
+const CONTRIB_NAME = 'EKUM';
 
 function openModal(title) {
   document.getElementById('modalTitle').textContent = 'Donate: ' + title;

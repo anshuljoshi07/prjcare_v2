@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Events |EKUM Foundation</title>
+  <title>Events |EKUM</title>
   <link rel="icon" href="images/logo/ngoLogo.jpg" type="image/jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -270,7 +270,7 @@
   <div class="nav-container">
     <a href="index.html" class="nav-logo">
       <img src="images/logo/ngoLogo.jpg" alt="EKUM Foundation Logo" />
-      <span class="nav-logo-text">EKUM <span>Foundation</span></span>
+      <span class="nav-logo-text">EKUM<small class="nav-initiative">an initiative by PRJ Care Foundation</small></span>
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
@@ -322,7 +322,7 @@
 <section class="events-cta-strip" data-aos="fade-up">
   <span class="section-tag">Make a Difference</span>
   <h2>"Every act of kindness grows the spirit and strengthens the soul."</h2>
-  <p>SupportEKUM Foundation in continuing these beautiful events for underprivileged children.</p>
+  <p>Support EKUM in continuing these beautiful events for underprivileged children.</p>
   <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
     <a href="contribute.html" class="btn-primary">Contribute Now</a>
     <a href="https://wa.me/919910954537?text=Hello%20PRJ%20Care%20Foundation!%20I%20would%20like%20to%20support%20your%20events." target="_blank" class="btn-whatsapp">
@@ -337,7 +337,8 @@
   <div class="footer-container">
     <div class="footer-brand">
       <img src="images/logo/ngoLogo.jpg" alt="EKUM Foundation" class="footer-logo" />
-      <h3>EKUM Foundation</h3>
+      <h3>EKUM</h3>
+      <p class="footer-parent-brand">an initiative by PRJ Care Foundation</p>
       <p>Unity in Purpose, Service for All.</p>
       <p class="footer-tagline"><em>"Join us in laying the foundation for a bright future of our country."</em></p>
     </div>
@@ -372,7 +373,7 @@
     <p><strong>Disclaimer:</strong> No third party agency is working on behalf of PRJ CARE for any recruitment, trainings, camps or other activities. PRJ CARE doesn't charge any money from anyone.</p>
   </div>
   <div class="footer-bottom">
-    <p>© 2026EKUM Foundation NGO. All rights reserved. Made with love for a better India.</p>
+    <p>© 2026 EKUM · an initiative by PRJ Care Foundation. All rights reserved. Made with love for a better India.</p>
     <div class="footer-social-mini">
       <a href="https://www.instagram.com/ekumfoundation/" target="_blank">Instagram</a>
       <a href="https://www.linkedin.com/company/prj-care-foundation/" target="_blank">LinkedIn</a>
@@ -422,7 +423,7 @@ function renderEvents(events) {
   }
   grid.innerHTML = events.map((ev, i) => {
     const tags  = (ev.hashtags || []).slice(0, 4).map(h => `<span class="hashtag">${h}</span>`).join('');
-    const waMsg = encodeURIComponent(`HelloEKUM Foundation! I saw your event "${ev.title}" and would like to know more.`);
+    const waMsg = encodeURIComponent(`HelloEKUM! I saw your event "${ev.title}" and would like to know more.`);
     const imgHtml = ev.image
       ? `<img src="${ev.image}" alt="${ev.title}" loading="lazy" onerror="this.style.display='none'" />`
       : `<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--peach-light),var(--peach-mid));"></div>`;
